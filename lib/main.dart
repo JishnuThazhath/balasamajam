@@ -1,3 +1,5 @@
+import 'package:balasamajam/routes.dart';
+import 'package:balasamajam/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,15 +11,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            "Manakody Balasamajam",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+    return MaterialApp(
+      title: "Manakody Balasamajam",
+      initialRoute: SplashScreen.routeName,
+      routes: routes,
     );
   }
 }
