@@ -1,5 +1,5 @@
 import 'package:balasamajam/routes.dart';
-import 'package:balasamajam/screens/splash/splash_screen.dart';
+import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,8 +13,13 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Manakody Balasamajam",
-      initialRoute: SplashScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: routes,
+      theme: ThemeData(
+        primaryColor: Colors.white30,
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: "Georgia",
+      ),
     );
   }
 }
