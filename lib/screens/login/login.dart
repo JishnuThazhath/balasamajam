@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import '../../data/login/login_user.dart';
+import '../enquiry/person_enquiry.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
+class LoginScreen extends StatefulWidget {
   static const String routeName = "LoginScreen";
+
+  @override
+  State<StatefulWidget> createState() => _LoginScreen();
+}
+
+class _LoginScreen extends State<LoginScreen> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   void login() {
     print("Logging in...");
-    /* 
-    TODO: Validate the username and password.
-    */
+    bool isLoggedIn =
+        loginUser(usernameController.text, passwordController.text);
+
+    if (isLoggedIn == true) {
+      Navigator.pushNamed(context, PersonEnquiry.routeName);
+    }
   }
 
   @override
@@ -21,11 +32,12 @@ class LoginScreen extends StatelessWidget {
         children: [
           const Text("Balasamajam Nadumuri"),
           // Username
-          const SizedBox(
+          SizedBox(
             width: 200,
             height: 30,
             child: TextField(
-              decoration: InputDecoration(
+              controller: usernameController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Username',
                 contentPadding: EdgeInsets.all(10),
@@ -33,11 +45,12 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           // Password
-          const SizedBox(
+          SizedBox(
             width: 200,
             height: 30,
             child: TextField(
-              decoration: InputDecoration(
+              controller: passwordController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Password',
                 contentPadding: EdgeInsets.all(10),

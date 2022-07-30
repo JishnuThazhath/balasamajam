@@ -19,15 +19,16 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Balasamajam Nadumuri"),
+            const Text("Balasamajam Nadumuri"),
             OutlinedButton(
-                onPressed: balasamajam_navigate, child: Text("Kavadi")),
+                onPressed: balasamajam_navigate, child: const Text("Kavadi")),
             OutlinedButton(
-                onPressed: balasamajam_navigate, child: Text("Balasamajam")),
+                onPressed: balasamajam_navigate,
+                child: const Text("Balasamajam")),
             OutlinedButton(
                 onPressed: () =>
                     {Navigator.pushNamed(context, LoginScreen.routeName)},
-                child: Text("Login")),
+                child: const Text("Login")),
           ],
         ),
       ),
