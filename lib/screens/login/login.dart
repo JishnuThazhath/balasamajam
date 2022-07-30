@@ -7,6 +7,9 @@ class LoginScreen extends StatelessWidget {
 
   void login() {
     print("Logging in...");
+    /* 
+    TODO: Validate the username and password.
+    */
   }
 
   @override

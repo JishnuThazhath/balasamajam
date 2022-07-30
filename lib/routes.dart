@@ -1,3 +1,6 @@
+import 'dart:js';
+
+import 'package:balasamajam/screens/enquiry/person_enquiry.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/login/login.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
@@ -7,4 +10,5 @@ Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
   LoginScreen.routeName: ((context) => const LoginScreen()),
   HomeScreen.routeName: (context) => const HomeScreen(),
+  PersonEnquiry.routeName: (context) => const PersonEnquiry(),
 };
