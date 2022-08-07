@@ -29,7 +29,7 @@ class _PirivuDetailsState extends State<PirivuDetails> {
             child: TableComponent(
               headers: _getHeaders(),
               data: _getData(),
-              clickEvent: () => onRowClick,
+              clickEvent: onRowClick,
             ),
           ),
           const Align(
@@ -47,7 +47,7 @@ class _PirivuDetailsState extends State<PirivuDetails> {
   _getHeaders() {
     return ["Week", "Total Amount"];
   }
-
+r
   _getData() {
     return [
       ["Week1", "500 INR"],
