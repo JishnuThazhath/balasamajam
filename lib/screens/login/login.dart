@@ -1,8 +1,10 @@
+import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../../data/login/login_user.dart';
-import '../enquiry/person_enquiry.dart';
 
 class LoginScreen extends StatefulWidget {
+  LoginScreen({super.key});
+
   static const String routeName = "LoginScreen";
 
   @override
@@ -12,16 +14,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  void login() {
-    print("Logging in...");
-    bool isLoggedIn =
-        loginUser(usernameController.text, passwordController.text);
-
-    if (isLoggedIn == true) {
-      Navigator.pushNamed(context, PersonEnquiry.routeName);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +49,19 @@ class _LoginScreen extends State<LoginScreen> {
               ),
             ),
           ),
-          OutlinedButton(onPressed: login, child: const Text("Login")),
+          OutlinedButton(onPressed: () => login(), child: const Text("Login")),
         ],
       )),
     );
+  }
+
+  login() {
+    print("Logging in...");
+    bool isLoggedIn =
+        loginUser(usernameController.text, passwordController.text);
+
+    if (isLoggedIn == true) {
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    }
   }
 }

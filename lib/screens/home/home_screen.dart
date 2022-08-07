@@ -1,16 +1,10 @@
-import 'package:balasamajam/screens/login/login.dart';
+import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   static const String routeName = 'HomeScreen';
-
-  balasamajam_navigate() {}
-
-  loginPage_navigate(BuildContext context) {
-    Navigator.pushNamed(context, LoginScreen.routeName);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +15,21 @@ class HomeScreen extends StatelessWidget {
           children: [
             const Text("Balasamajam Nadumuri"),
             OutlinedButton(
-                onPressed: balasamajam_navigate, child: const Text("Kavadi")),
+                onPressed: () => _kavadi(context), child: const Text("Kavadi")),
             OutlinedButton(
-                onPressed: balasamajam_navigate,
-                child: const Text("Balasamajam")),
-            OutlinedButton(
-                onPressed: () =>
-                    {Navigator.pushNamed(context, LoginScreen.routeName)},
-                child: const Text("Login")),
+                onPressed: () => _maranasamidhi(context),
+                child: const Text("Maranasamidhi")),
           ],
         ),
       ),
     );
+  }
+
+  _maranasamidhi(BuildContext context) {
+    print("Coming Soon..");
+  }
+
+  _kavadi(BuildContext context) {
+    Navigator.pushNamed(context, KavadiHome.routeName);
   }
 }

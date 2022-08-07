@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Splash screen should wait for sometime and load the login screen
     Future.delayed(
-        const Duration(seconds: 5),
+        const Duration(seconds: 3),
         () => {
               Navigator.pushNamedAndRemoveUntil(
                   context, LoginScreen.routeName, (route) => false)
