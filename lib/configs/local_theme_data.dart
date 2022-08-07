@@ -15,6 +15,10 @@ class LocalThemeData {
   static TextStyle buttonText = TextStyle(
       fontFamily: 'Trueno',
       fontSize: Responsive.blockSizeVertical * 20,
-      color: Colors.white,
+      color: Colors.white);
+
+  static TextStyle labelText = TextStyle(
+      fontFamily: 'Trueno',
+      fontSize: Responsive.blockSizeVertical * 25,
       fontWeight: FontWeight.bold);
 }

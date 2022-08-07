@@ -4,7 +4,10 @@ import 'package:balasamajam/responsive.dart';
 import 'package:flutter/material.dart';
 
 class WeeklyPirivuDetails extends StatefulWidget {
-  const WeeklyPirivuDetails({super.key});
+  String week;
+  WeeklyPirivuDetails({super.key, required this.week});
+
+  static const String routeName = "WeeklyPirivuDetails";
 
   @override
   State<WeeklyPirivuDetails> createState() => _WeeklyPirivuDetailsState();
@@ -23,24 +26,31 @@ class _WeeklyPirivuDetailsState extends State<WeeklyPirivuDetails> {
           Text("Kavadi - Weekly Pirivu Vivarangal",
               style: LocalThemeData.subTitle),
           SizedBox(height: Responsive.blockSizeHorizontal * 50),
-          Text("Week : 01/Aug - 07/Aug", style: LocalThemeData.subTitle),
+          Text("Week : ${widget.week}", style: LocalThemeData.subTitle),
           SizedBox(height: Responsive.blockSizeHorizontal * 30),
-          SizedBox(
-            height: Responsive.blockSizeVertical * 400,
-            child: TableComponent(
-              headers: _getHeaders(),
-              data: _getData(),
-              clickEvent: () => {},
-            ),
+          TableComponent(
+            headers: _getHeaders(),
+            data: _getData(),
+            rowClickCallback: () => {},
           ),
+          const SizedBox(height: 30),
           Align(
             alignment: Alignment.centerLeft,
-            child: Column(children: const [
-              Text("Total : 1000 INR", style: TextStyle(fontSize: 25.0)),
-              Text("Expenses : 3000 INR", style: TextStyle(fontSize: 25.0)),
-              Text("Net Total : 4000 INR", style: TextStyle(fontSize: 25.0)),
-            ]),
+            child: Padding(
+              padding:
+                  EdgeInsets.only(left: Responsive.blockSizeHorizontal * 30),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Total : 1000 INR", style: LocalThemeData.labelText),
+                    Text("Expenses : 3000 INR",
+                        style: LocalThemeData.labelText),
+                    Text("Net Total : 4000 INR",
+                        style: LocalThemeData.labelText),
+                  ]),
+            ),
           ),
+          const SizedBox(height: 30),
           ElevatedButton(
               onPressed: () => {},
               child: Text("Download PDF", style: LocalThemeData.buttonText))
@@ -49,7 +59,20 @@ class _WeeklyPirivuDetailsState extends State<WeeklyPirivuDetails> {
     );
   }
 
-  _getHeaders() {}
+  _getHeaders() {
+    return ["SLNO", "Name", "Amount", "Total", "Collected By"];
+  }
 
-  _getData() {}
+  _getData() {
+    return [
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+    ];
+  }
 }

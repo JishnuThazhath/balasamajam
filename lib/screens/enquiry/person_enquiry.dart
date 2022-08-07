@@ -40,19 +40,17 @@ class PersonEnquiry extends StatelessWidget {
                 child: Text("Go", style: LocalThemeData.buttonText)),
           ]),
           SizedBox(width: Responsive.blockSizeVertical * 10),
-          SizedBox(
-            height: Responsive.blockSizeVertical * 400,
-            child: TableComponent(
-              headers: _getHeaders(),
-              data: _getData(),
-              clickEvent: () => {},
-            ),
+          TableComponent(
+            headers: _getHeaders(),
+            data: _getData(),
+            rowClickCallback: (value) => {},
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Text("Total : ", style: TextStyle(fontSize: 25.0)),
+              padding:
+                  EdgeInsets.only(left: Responsive.blockSizeHorizontal * 30),
+              child: Text("Total : ", style: LocalThemeData.labelText),
             ),
           ),
           ElevatedButton(

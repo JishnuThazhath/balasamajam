@@ -1,6 +1,7 @@
 import 'package:balasamajam/components/table_component.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
+import 'package:balasamajam/screens/pirivu/weekly_pirivu_details.dart';
 import 'package:flutter/material.dart';
 
 class PirivuDetails extends StatefulWidget {
@@ -29,14 +30,14 @@ class _PirivuDetailsState extends State<PirivuDetails> {
             child: TableComponent(
               headers: _getHeaders(),
               data: _getData(),
-              clickEvent: onRowClick,
+              rowClickCallback: onRowClick,
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Text("Total : ", style: TextStyle(fontSize: 25.0)),
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text("Total : ", style: LocalThemeData.labelText),
             ),
           ),
         ],
@@ -47,19 +48,22 @@ class _PirivuDetailsState extends State<PirivuDetails> {
   _getHeaders() {
     return ["Week", "Total Amount"];
   }
-r
+
   _getData() {
     return [
       ["Week1", "500 INR"],
-      ["Week1", "500 INR"],
-      ["Week1", "500 INR"],
-      ["Week1", "500 INR"],
-      ["Week1", "500 INR"],
-      ["Week1", "500 INR"]
+      ["Week2", "500 INR"],
+      ["Week3", "500 INR"],
+      ["Week4", "500 INR"],
+      ["Week5", "500 INR"],
+      ["Week6", "500 INR"]
     ];
   }
 
-  onRowClick() {
-    print("row clicked !");
+  onRowClick(List<String> row) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => WeeklyPirivuDetails(week: row[0])));
   }
 }
