@@ -25,13 +25,10 @@ class _PirivuDetailsState extends State<PirivuDetails> {
           SizedBox(height: Responsive.blockSizeHorizontal * 30),
           Text("Kavadi - Pirivu Vivarangal", style: LocalThemeData.subTitle),
           SizedBox(height: Responsive.blockSizeHorizontal * 50),
-          SizedBox(
-            height: Responsive.blockSizeVertical * 400,
-            child: TableComponent(
-              headers: _getHeaders(),
-              data: _getData(),
-              rowClickCallback: onRowClick,
-            ),
+          TableComponent(
+            headers: _getHeaders(),
+            data: _getData(),
+            rowClickCallback: onRowClick,
           ),
           Align(
             alignment: Alignment.centerLeft,
