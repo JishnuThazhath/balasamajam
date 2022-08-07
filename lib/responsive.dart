@@ -6,13 +6,13 @@ class Responsive {
   static double blockSizeHorizontal = 0;
   static double blockSizeVertical = 0;
 
-  void init(BuildContext context) {
+  static void init(BuildContext context) {
     MediaQueryData deviceData = MediaQuery.of(context);
 
     screenWidth = deviceData.size.width;
     screenHeight = deviceData.size.height;
 
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
+    blockSizeHorizontal = screenWidth / 1000;
+    blockSizeVertical = screenHeight / 1000;
   }
 }

@@ -2,6 +2,7 @@ import 'package:balasamajam/screens/enquiry/person_enquiry.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
 import 'package:balasamajam/screens/login/login.dart';
+import 'package:balasamajam/screens/pirivu/pirivu_details.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,4 +12,5 @@ Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => const HomeScreen(),
   PersonEnquiry.routeName: (context) => PersonEnquiry(),
   KavadiHome.routeName: (context) => const KavadiHome(),
+  PirivuDetails.routeName: (context) => PirivuDetails(),
 };

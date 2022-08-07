@@ -1,3 +1,5 @@
+import 'package:balasamajam/configs/local_theme_data.dart';
+import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../../data/login/login_user.dart';
@@ -22,11 +24,11 @@ class _LoginScreen extends State<LoginScreen> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Balasamajam Nadumuri"),
-          // Username
+          Text("Manakody Balasamajam", style: LocalThemeData.mainHeading),
+          SizedBox(height: Responsive.blockSizeVertical * 50),
           SizedBox(
-            width: 200,
-            height: 30,
+            width: Responsive.blockSizeHorizontal * 500,
+            height: Responsive.blockSizeVertical * 45,
             child: TextField(
               controller: usernameController,
               decoration: const InputDecoration(
@@ -36,10 +38,10 @@ class _LoginScreen extends State<LoginScreen> {
               ),
             ),
           ),
-          // Password
+          SizedBox(height: Responsive.blockSizeVertical * 10),
           SizedBox(
-            width: 200,
-            height: 30,
+            width: Responsive.blockSizeHorizontal * 500,
+            height: Responsive.blockSizeVertical * 45,
             child: TextField(
               controller: passwordController,
               decoration: const InputDecoration(
@@ -49,14 +51,16 @@ class _LoginScreen extends State<LoginScreen> {
               ),
             ),
           ),
-          OutlinedButton(onPressed: () => login(), child: const Text("Login")),
+          SizedBox(height: Responsive.blockSizeVertical * 10),
+          ElevatedButton(
+              onPressed: () => _login(),
+              child: Text("Login", style: LocalThemeData.buttonText)),
         ],
       )),
     );
   }
 
-  login() {
-    print("Logging in...");
+  _login() {
     bool isLoggedIn =
         loginUser(usernameController.text, passwordController.text);
 

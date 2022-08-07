@@ -1,4 +1,6 @@
 import 'package:balasamajam/components/table_component.dart';
+import 'package:balasamajam/configs/local_theme_data.dart';
+import 'package:balasamajam/responsive.dart';
 import 'package:flutter/material.dart';
 
 class PersonEnquiry extends StatelessWidget {
@@ -15,13 +17,14 @@ class PersonEnquiry extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Balasamajam Nadumuri"),
-          const Text("Kavadi - Personal Enquiry"),
-          // Search
+          Text("Manakody Balasamajam", style: LocalThemeData.mainHeading),
+          SizedBox(height: Responsive.blockSizeHorizontal * 30),
+          Text("Kavadi - Personal Enquiry", style: LocalThemeData.subTitle),
+          SizedBox(height: Responsive.blockSizeHorizontal * 50),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SizedBox(
-              width: 200,
-              height: 30,
+              width: Responsive.blockSizeHorizontal * 500,
+              height: Responsive.blockSizeVertical * 45,
               child: TextField(
                 controller: searchController,
                 decoration: const InputDecoration(
@@ -31,26 +34,30 @@ class PersonEnquiry extends StatelessWidget {
                 ),
               ),
             ),
-            OutlinedButton(onPressed: () {}, child: const Text("Go")),
+            SizedBox(width: Responsive.blockSizeHorizontal * 10),
+            ElevatedButton(
+                onPressed: () {},
+                child: Text("Go", style: LocalThemeData.buttonText)),
           ]),
+          SizedBox(width: Responsive.blockSizeVertical * 10),
           SizedBox(
-            height: 300,
+            height: Responsive.blockSizeVertical * 400,
             child: TableComponent(
               headers: _getHeaders(),
               data: _getData(),
+              clickEvent: () => {},
             ),
           ),
           const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.only(left: 20.0),
-              child: Text(
-                "Total : ",
-                style: TextStyle(fontSize: 25.0),
-              ),
+              child: Text("Total : ", style: TextStyle(fontSize: 25.0)),
             ),
           ),
-          OutlinedButton(onPressed: () {}, child: const Text("Download PDF")),
+          ElevatedButton(
+              onPressed: () {},
+              child: Text("Download PDF", style: LocalThemeData.buttonText)),
           const SizedBox(
             height: 30,
           ),
@@ -58,8 +65,8 @@ class PersonEnquiry extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 200,
-                height: 30,
+                width: Responsive.blockSizeHorizontal * 500,
+                height: Responsive.blockSizeVertical * 45,
                 child: TextField(
                   controller: searchController,
                   decoration: const InputDecoration(
@@ -69,7 +76,10 @@ class PersonEnquiry extends StatelessWidget {
                   ),
                 ),
               ),
-              OutlinedButton(onPressed: () {}, child: const Text("Go")),
+              SizedBox(width: Responsive.blockSizeVertical * 10),
+              ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Go", style: LocalThemeData.buttonText)),
             ],
           ),
         ],
