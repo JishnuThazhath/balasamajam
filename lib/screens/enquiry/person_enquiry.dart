@@ -1,4 +1,5 @@
 import 'package:balasamajam/components/table_component.dart';
+import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:flutter/material.dart';
@@ -12,56 +13,14 @@ class PersonEnquiry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Manakody Balasamajam", style: LocalThemeData.mainHeading),
-          SizedBox(height: Responsive.blockSizeHorizontal * 30),
-          Text("Kavadi - Personal Enquiry", style: LocalThemeData.subTitle),
-          SizedBox(height: Responsive.blockSizeHorizontal * 50),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              width: Responsive.blockSizeHorizontal * 500,
-              height: Responsive.blockSizeVertical * 45,
-              child: TextField(
-                controller: searchController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Name',
-                  contentPadding: EdgeInsets.all(10),
-                ),
-              ),
-            ),
-            SizedBox(width: Responsive.blockSizeHorizontal * 10),
-            ElevatedButton(
-                onPressed: () {},
-                child: Text("Go", style: LocalThemeData.buttonText)),
-          ]),
-          SizedBox(width: Responsive.blockSizeVertical * 10),
-          TableComponent(
-            headers: _getHeaders(),
-            data: _getData(),
-            rowClickCallback: (value) => {},
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding:
-                  EdgeInsets.only(left: Responsive.blockSizeHorizontal * 30),
-              child: Text("Total : ", style: LocalThemeData.labelText),
-            ),
-          ),
-          ElevatedButton(
-              onPressed: () {},
-              child: Text("Download PDF", style: LocalThemeData.buttonText)),
-          const SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+    return Template(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Kavadi - Personal Enquiry", style: LocalThemeData.subTitle),
+            SizedBox(height: Responsive.blockSizeHorizontal * 50),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               SizedBox(
                 width: Responsive.blockSizeHorizontal * 500,
                 height: Responsive.blockSizeVertical * 45,
@@ -69,19 +28,63 @@ class PersonEnquiry extends StatelessWidget {
                   controller: searchController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter Payment',
+                    hintText: 'Name',
                     contentPadding: EdgeInsets.all(10),
                   ),
                 ),
               ),
-              SizedBox(width: Responsive.blockSizeVertical * 10),
+              SizedBox(width: Responsive.blockSizeHorizontal * 10),
               ElevatedButton(
                   onPressed: () {},
-                  child: Text("Go", style: LocalThemeData.buttonText)),
-            ],
-          ),
-        ],
-      )),
+                  child: Text("Go", style: LocalThemeData.buttonText),
+                  style: LocalThemeData.buttonPrimartColor),
+            ]),
+            SizedBox(width: Responsive.blockSizeVertical * 10),
+            TableComponent(
+              headers: _getHeaders(),
+              data: _getData(),
+              rowClickCallback: (value) => {},
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding:
+                    EdgeInsets.only(left: Responsive.blockSizeHorizontal * 30),
+                child: Text("Total : ", style: LocalThemeData.labelText),
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () {},
+                child: Text("Download PDF", style: LocalThemeData.buttonText),
+                style: LocalThemeData.buttonPrimartColor),
+            const SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: Responsive.blockSizeHorizontal * 500,
+                  height: Responsive.blockSizeVertical * 45,
+                  child: TextField(
+                    controller: searchController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter Payment',
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                  ),
+                ),
+                SizedBox(width: Responsive.blockSizeVertical * 10),
+                ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Go", style: LocalThemeData.buttonText),
+                    style: LocalThemeData.buttonPrimartColor),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 

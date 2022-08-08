@@ -1,3 +1,4 @@
+import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
@@ -10,29 +11,29 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Template(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Manakody Balasamajam", style: LocalThemeData.mainHeading),
-            SizedBox(height: Responsive.blockSizeVertical * 50),
             SizedBox(
-              width: Responsive.blockSizeHorizontal * 450,
-              height: Responsive.blockSizeVertical * 50,
+              width: Responsive.blockSizeHorizontal * 800,
+              height: Responsive.blockSizeVertical * 100,
               child: ElevatedButton(
                 onPressed: () => _kavadi(context),
                 child: Text("Kavadi", style: LocalThemeData.buttonText),
+                style: LocalThemeData.buttonPrimartColor,
               ),
             ),
             SizedBox(height: Responsive.blockSizeVertical * 30),
             SizedBox(
-              width: Responsive.blockSizeHorizontal * 450,
-              height: Responsive.blockSizeVertical * 50,
+              width: Responsive.blockSizeHorizontal * 800,
+              height: Responsive.blockSizeVertical * 100,
               child: ElevatedButton(
-                  onPressed: () => _maranasamidhi(context),
-                  child:
-                      Text("Maranasamidhi", style: LocalThemeData.buttonText)),
+                onPressed: () => _maranasamidhi(context),
+                child: Text("Maranasamidhi", style: LocalThemeData.buttonText),
+                style: LocalThemeData.buttonPrimartColor,
+              ),
             ),
           ],
         ),

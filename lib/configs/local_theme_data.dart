@@ -19,6 +19,12 @@ class LocalThemeData {
 
   static TextStyle labelText = TextStyle(
       fontFamily: 'Trueno',
-      fontSize: Responsive.blockSizeVertical * 25,
+      fontSize: Responsive.blockSizeVertical * 20,
       fontWeight: FontWeight.bold);
+
+  static const primaryColor = Color(0xff6175FA);
+  static Color? backgroundColor = Colors.white;
+
+  static ButtonStyle buttonPrimartColor =
+      ElevatedButton.styleFrom(backgroundColor: primaryColor);
 }

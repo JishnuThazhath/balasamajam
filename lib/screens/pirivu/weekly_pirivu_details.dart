@@ -1,4 +1,5 @@
 import 'package:balasamajam/components/table_component.dart';
+import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +17,22 @@ class WeeklyPirivuDetails extends StatefulWidget {
 class _WeeklyPirivuDetailsState extends State<WeeklyPirivuDetails> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Column(
+    return Template(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Manakody Balasamajam", style: LocalThemeData.mainHeading),
-          SizedBox(height: Responsive.blockSizeHorizontal * 30),
           Text("Kavadi - Weekly Pirivu Vivarangal",
               style: LocalThemeData.subTitle),
-          SizedBox(height: Responsive.blockSizeHorizontal * 50),
+          SizedBox(height: Responsive.blockSizeHorizontal * 30),
           Text("Week : ${widget.week}", style: LocalThemeData.subTitle),
           SizedBox(height: Responsive.blockSizeHorizontal * 30),
-          TableComponent(
-            headers: _getHeaders(),
-            data: _getData(),
-            rowClickCallback: () => {},
+          SizedBox(
+            height: Responsive.blockSizeVertical * 400,
+            child: TableComponent(
+              headers: _getHeaders(),
+              data: _getData(),
+              rowClickCallback: () {},
+            ),
           ),
           const SizedBox(height: 30),
           Align(
@@ -50,12 +51,13 @@ class _WeeklyPirivuDetailsState extends State<WeeklyPirivuDetails> {
                   ]),
             ),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: Responsive.blockSizeVertical * 30),
           ElevatedButton(
               onPressed: () => {},
-              child: Text("Download PDF", style: LocalThemeData.buttonText))
+              child: Text("Download PDF", style: LocalThemeData.buttonText),
+              style: LocalThemeData.buttonPrimartColor)
         ],
-      )),
+      ),
     );
   }
 
@@ -73,6 +75,14 @@ class _WeeklyPirivuDetailsState extends State<WeeklyPirivuDetails> {
       ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
       ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
       ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"],
+      ["1", "Ned Stark", "5000 INR", "10000 INR", "Cercei Lanister"],
+      ["2", "Lady Mormont", "2000 INR", "40000 INR", "Tyrion Lanister"]
     ];
   }
 }
