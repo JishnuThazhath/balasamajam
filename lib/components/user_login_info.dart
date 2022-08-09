@@ -9,7 +9,7 @@ class UserLoginInfo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Logged in as Admin", style: LocalThemeData.subTitle),
+        Text("Nadumuri Balasamajam", style: LocalThemeData.subTitle),
         Container(
           decoration: BoxDecoration(
               color: Colors.grey[100],

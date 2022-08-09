@@ -31,7 +31,7 @@ class _WeeklyPirivuDetailsState extends State<WeeklyPirivuDetails> {
             child: TableComponent(
               headers: _getHeaders(),
               data: _getData(),
-              rowClickCallback: () {},
+              rowClickCallback: (List<String> row) {},
             ),
           ),
           const SizedBox(height: 30),

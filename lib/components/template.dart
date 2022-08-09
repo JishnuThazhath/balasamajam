@@ -1,5 +1,4 @@
 import 'package:balasamajam/components/user_login_info.dart';
-import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
