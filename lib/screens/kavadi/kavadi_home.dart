@@ -22,9 +22,9 @@ class KavadiHome extends StatelessWidget {
               height: Responsive.blockSizeVertical * 100,
               child: ElevatedButton(
                   onPressed: () => _pirivu_details(context),
+                  style: LocalThemeData.buttonPrimartColor,
                   child: Text("Pirivu Vivarangal",
-                      style: LocalThemeData.buttonText),
-                  style: LocalThemeData.buttonPrimartColor),
+                      style: LocalThemeData.buttonText)),
             ),
             SizedBox(height: Responsive.blockSizeVertical * 30),
             SizedBox(
@@ -32,9 +32,9 @@ class KavadiHome extends StatelessWidget {
               height: Responsive.blockSizeVertical * 100,
               child: ElevatedButton(
                   onPressed: () => _personal_enquiry(context),
+                  style: LocalThemeData.buttonPrimartColor,
                   child: Text("Personal Enquiry",
-                      style: LocalThemeData.buttonText),
-                  style: LocalThemeData.buttonPrimartColor),
+                      style: LocalThemeData.buttonText)),
             ),
           ],
         ),
@@ -43,7 +43,12 @@ class KavadiHome extends StatelessWidget {
   }
 
   _pirivu_details(BuildContext context) {
-    Navigator.pushNamed(context, PirivuDetails.routeName);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PirivuDetails(
+                  title: 'Kavadi',
+                )));
   }
 
   _personal_enquiry(BuildContext context) {

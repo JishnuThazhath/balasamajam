@@ -2,6 +2,7 @@ import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
+import 'package:balasamajam/screens/maranasamidhi/maranasamidhi_home.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,8 +22,8 @@ class HomeScreen extends StatelessWidget {
               height: Responsive.blockSizeVertical * 100,
               child: ElevatedButton(
                 onPressed: () => _kavadi(context),
-                child: Text("Kavadi", style: LocalThemeData.buttonText),
                 style: LocalThemeData.buttonPrimartColor,
+                child: Text("Kavadi", style: LocalThemeData.buttonText),
               ),
             ),
             SizedBox(height: Responsive.blockSizeVertical * 30),
@@ -31,8 +32,8 @@ class HomeScreen extends StatelessWidget {
               height: Responsive.blockSizeVertical * 100,
               child: ElevatedButton(
                 onPressed: () => _maranasamidhi(context),
-                child: Text("Maranasamidhi", style: LocalThemeData.buttonText),
                 style: LocalThemeData.buttonPrimartColor,
+                child: Text("Maranasamidhi", style: LocalThemeData.buttonText),
               ),
             ),
           ],
@@ -41,7 +42,9 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _maranasamidhi(BuildContext context) {}
+  _maranasamidhi(BuildContext context) {
+    Navigator.pushNamed(context, MaranasamidhiHome.routeName);
+  }
 
   _kavadi(BuildContext context) {
     Navigator.pushNamed(context, KavadiHome.routeName);

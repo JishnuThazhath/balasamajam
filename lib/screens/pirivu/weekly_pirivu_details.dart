@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 
 class WeeklyPirivuDetails extends StatefulWidget {
   String week;
-  WeeklyPirivuDetails({super.key, required this.week});
+  String title;
+  WeeklyPirivuDetails({super.key, required this.week, required this.title});
 
   static const String routeName = "WeeklyPirivuDetails";
 
@@ -21,7 +22,7 @@ class _WeeklyPirivuDetailsState extends State<WeeklyPirivuDetails> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Kavadi - Weekly Pirivu Vivarangal",
+          Text("${widget.title} - Weekly Pirivu Vivarangal",
               style: LocalThemeData.subTitle),
           SizedBox(height: Responsive.blockSizeHorizontal * 30),
           Text("Week : ${widget.week}", style: LocalThemeData.subTitle),

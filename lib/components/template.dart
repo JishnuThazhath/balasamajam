@@ -2,6 +2,7 @@ import 'package:balasamajam/components/user_login_info.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
+import 'package:balasamajam/screens/maranasamidhi/maranasamidhi_home.dart';
 import 'package:flutter/material.dart';
 
 class Template extends StatelessWidget {
@@ -18,7 +19,7 @@ class Template extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              UserLoginInfo(),
+              const UserLoginInfo(),
               SizedBox(height: Responsive.blockSizeVertical * 30),
               Expanded(child: child)
             ],
@@ -39,6 +40,7 @@ class Template extends StatelessWidget {
   }
 
   _bottomNavigationBarClickEvent(int idx, BuildContext context) {
+    //todo : if the screen already the selected screen then do nothing. this will avoid the exra animation.
     String routeName = HomeScreen.routeName;
 
     switch (idx) {
@@ -49,7 +51,7 @@ class Template extends StatelessWidget {
         break;
       case 2:
         {
-          routeName = HomeScreen.routeName;
+          routeName = MaranasamidhiHome.routeName;
         }
         break;
     }

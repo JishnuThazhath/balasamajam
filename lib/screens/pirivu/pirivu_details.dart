@@ -6,7 +6,9 @@ import 'package:balasamajam/screens/pirivu/weekly_pirivu_details.dart';
 import 'package:flutter/material.dart';
 
 class PirivuDetails extends StatefulWidget {
-  const PirivuDetails({super.key});
+  String title = "";
+
+  PirivuDetails({super.key, required this.title});
 
   static const routeName = "PirivuDetails";
 
@@ -22,7 +24,8 @@ class _PirivuDetailsState extends State<PirivuDetails> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Kavadi - Pirivu Vivarangal", style: LocalThemeData.subTitle),
+            Text("${widget.title} - Pirivu Vivarangal",
+                style: LocalThemeData.subTitle),
             SizedBox(height: Responsive.blockSizeHorizontal * 50),
             SizedBox(
               height: Responsive.blockSizeVertical * 400,
@@ -70,6 +73,9 @@ class _PirivuDetailsState extends State<PirivuDetails> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => WeeklyPirivuDetails(week: row[0])));
+            builder: (context) => WeeklyPirivuDetails(
+                  week: row[0],
+                  title: widget.title,
+                )));
   }
 }
