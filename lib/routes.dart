@@ -1,8 +1,10 @@
+import 'package:balasamajam/screens/enquiry/maranasamidhi_personal_enquiry.dart';
 import 'package:balasamajam/screens/enquiry/person_enquiry.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
 import 'package:balasamajam/screens/login/login.dart';
 import 'package:balasamajam/screens/maranasamidhi/maranasamidhi_home.dart';
+import 'package:balasamajam/screens/payment/payment_history.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,4 +17,7 @@ Map<String, WidgetBuilder> routes = {
   // PirivuDetails.routeName: (context) => PirivuDetails(),
   //WeeklyPirivuDetails.routeName: (context) => WeeklyPirivuDetails(),
   MaranasamidhiHome.routeName: (context) => const MaranasamidhiHome(),
+  MaranasamidhiPersonalEnquiry.routeName: (context) =>
+      MaranasamidhiPersonalEnquiry(),
+  //PaymentHistory.routeName: (context) => PaymentHistory(),
 };

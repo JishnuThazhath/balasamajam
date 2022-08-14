@@ -22,9 +22,21 @@ class LocalThemeData {
       fontSize: Responsive.blockSizeVertical * 20,
       fontWeight: FontWeight.bold);
 
+  static TextStyle stypePrimaryText = TextStyle(
+      fontFamily: 'Trueno',
+      fontSize: Responsive.blockSizeVertical * 30,
+      fontWeight: FontWeight.bold,
+      color: primaryColor);
+
   static const primaryColor = Color(0xff6175FA);
   static Color? backgroundColor = Colors.white;
 
   static ButtonStyle buttonPrimartColor =
       ElevatedButton.styleFrom(backgroundColor: primaryColor);
+
+  static ButtonStyle longButtonStyle = ElevatedButton.styleFrom(
+      backgroundColor: primaryColor,
+      padding: EdgeInsets.symmetric(
+          horizontal: Responsive.blockSizeHorizontal * 420,
+          vertical: Responsive.blockSizeVertical * 30));
 }

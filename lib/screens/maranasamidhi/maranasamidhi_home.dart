@@ -1,6 +1,7 @@
 import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
+import 'package:balasamajam/screens/enquiry/maranasamidhi_personal_enquiry.dart';
 import 'package:balasamajam/screens/pirivu/pirivu_details.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,9 @@ class MaranasamidhiHome extends StatelessWidget {
             builder: (context) => PirivuDetails(title: 'Maranasamidhi')));
   }
 
-  _personal_enquiry(BuildContext context) {}
+  _personal_enquiry(BuildContext context) {
+    Navigator.pushNamed(context, MaranasamidhiPersonalEnquiry.routeName);
+  }
 
   _chilav_details(BuildContext context) {}
 }

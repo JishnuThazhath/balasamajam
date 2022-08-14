@@ -36,8 +36,8 @@ class PersonEnquiry extends StatelessWidget {
               SizedBox(width: Responsive.blockSizeHorizontal * 10),
               ElevatedButton(
                   onPressed: () {},
-                  child: Text("Go", style: LocalThemeData.buttonText),
-                  style: LocalThemeData.buttonPrimartColor),
+                  style: LocalThemeData.buttonPrimartColor,
+                  child: Text("Go", style: LocalThemeData.buttonText)),
             ]),
             SizedBox(width: Responsive.blockSizeVertical * 10),
             TableComponent(
@@ -55,8 +55,8 @@ class PersonEnquiry extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {},
-                child: Text("Download PDF", style: LocalThemeData.buttonText),
-                style: LocalThemeData.buttonPrimartColor),
+                style: LocalThemeData.buttonPrimartColor,
+                child: Text("Download PDF", style: LocalThemeData.buttonText)),
             const SizedBox(
               height: 30,
             ),

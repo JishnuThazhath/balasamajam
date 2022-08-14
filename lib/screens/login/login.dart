@@ -20,44 +20,45 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Template(
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: Responsive.blockSizeHorizontal * 500,
-            height: Responsive.blockSizeVertical * 45,
-            child: TextField(
-              controller: usernameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Username',
-                contentPadding: EdgeInsets.all(10),
+    String? passwordErrorText = null;
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Responsive.blockSizeHorizontal * 20,
+              vertical: Responsive.blockSizeVertical * 10),
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: usernameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Username',
+                  contentPadding: EdgeInsets.all(10),
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: Responsive.blockSizeVertical * 10),
-          SizedBox(
-            width: Responsive.blockSizeHorizontal * 500,
-            height: Responsive.blockSizeVertical * 45,
-            child: TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Password',
-                contentPadding: EdgeInsets.all(10),
+              SizedBox(height: Responsive.blockSizeVertical * 10),
+              TextField(
+                obscureText: true,
+                controller: passwordController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Password',
+                    contentPadding: EdgeInsets.all(10),
+                    errorText: passwordErrorText),
               ),
-            ),
-          ),
-          SizedBox(height: Responsive.blockSizeVertical * 10),
-          ElevatedButton(
-            onPressed: () => _login(),
-            style: LocalThemeData.buttonPrimartColor,
-            child: Text("Login", style: LocalThemeData.buttonText),
-          ),
-        ],
-      )),
+              SizedBox(height: Responsive.blockSizeVertical * 10),
+              ElevatedButton(
+                onPressed: () => _login(),
+                style: LocalThemeData.buttonPrimartColor,
+                child: Text("Login", style: LocalThemeData.buttonText),
+              ),
+            ],
+          )),
+        ),
+      ),
     );
   }
 

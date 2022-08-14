@@ -17,7 +17,6 @@ class Template extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: Responsive.blockSizeHorizontal * 40),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const UserLoginInfo(),
               SizedBox(height: Responsive.blockSizeVertical * 30),
