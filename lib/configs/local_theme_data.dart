@@ -39,4 +39,10 @@ class LocalThemeData {
       padding: EdgeInsets.symmetric(
           horizontal: Responsive.blockSizeHorizontal * 420,
           vertical: Responsive.blockSizeVertical * 30));
+
+  static var errorMessage = TextStyle(
+      fontFamily: 'Trueno',
+      fontSize: Responsive.blockSizeVertical * 20,
+      fontWeight: FontWeight.bold,
+      color: Colors.red);
 }

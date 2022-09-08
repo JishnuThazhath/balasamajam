@@ -1,4 +1,5 @@
 import 'package:balasamajam/configs/local_theme_data.dart';
+import 'package:balasamajam/configs/shared_state.dart';
 import 'package:balasamajam/routes.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
