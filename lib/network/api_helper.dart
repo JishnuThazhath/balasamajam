@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:balasamajam/network/api_enums.dart';
 import 'package:balasamajam/network/api_typedef.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class APIHelper {
@@ -34,20 +35,29 @@ class APIHelper {
     try {
       if (response == null || response.body.isEmpty) {
         return apiOnFailureCallBackWithMessage(
-            APIResponseErrorType.EMPTY_RESPONSE, "Request Failed");
+            APIResponseErrorType.EMPTY_RESPONSE, "Contact your Administrator");
       }
 
-      var json = jsonDecode(response.body);
+      Map<String, dynamic> json = jsonDecode(response.body);
       print("got result : $json");
 
-      if (response.statusCode == 200) {
-        print("status code is good.. invoking callback");
+      if (!_isValidResponse(json)) {
+        return apiOnFailureCallBackWithMessage(
+            APIResponseErrorType.EMPTY_RESPONSE,
+            "Reponse is empty. Contact your Administrator");
+      }
+
+      if ((response.statusCode == 200 || response.statusCode == 201) &&
+          json['status'] == "OK") {
         return apiCallback(json);
       } else {
         return apiOnFailureCallBackWithMessage(
-            APIResponseErrorType.FAILED, "Request Failed");
+            // here if the respose contains any error message you can get that and put it here. that makes more sense right ?
+            APIResponseErrorType.FAILED,
+            json['message']);
       }
-    } catch (e) {
+    } catch (e, stacktrace) {
+      debugPrint("Error - $e :::: $stacktrace");
       return apiOnFailureCallBackWithMessage(APIResponseErrorType.UNKNOWN,
           "Something went wrong. Contact your Administrator!");
     }

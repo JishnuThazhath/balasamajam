@@ -1,4 +1,5 @@
-import 'package:balasamajam/data/login/login_user.dart';
+import 'package:balasamajam/configs/shared_state.dart';
+import 'package:balasamajam/constants/api_constants.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: isLoggedIn(),
+        future: _isLoggedIn(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
@@ -24,5 +25,12 @@ class _IndexScreenState extends State<IndexScreen> {
           }
           return SplashScreen(key: UniqueKey());
         });
+  }
+
+  _isLoggedIn() async {
+    final _loggedInState =
+        await SharedState.getSharedState(LocalAppState.IS_LOGGED_IN.toString());
+
+    return _loggedInState != null && _loggedInState == true;
   }
 }

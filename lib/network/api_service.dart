@@ -36,7 +36,7 @@ class APIService {
 
       final _url = APIHelper.addQueryParams(url, queryParams);
 
-      print(body);
+      print("Request body $body");
 
       final response = await _createRequest(
           requestType: requestType,

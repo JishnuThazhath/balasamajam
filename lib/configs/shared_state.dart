@@ -22,4 +22,11 @@ class SharedState {
     }
     preferences?.setBool(key, value);
   }
+
+  static Future<void> saveLoginToken(String key, String value) async {
+    if (preferences == null) {
+      await init();
+    }
+    preferences?.setString(key, value);
+  }
 }
