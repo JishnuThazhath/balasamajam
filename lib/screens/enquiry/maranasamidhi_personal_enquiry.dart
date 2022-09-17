@@ -2,6 +2,10 @@ import 'package:balasamajam/components/long_card.dart';
 import 'package:balasamajam/components/table_component.dart';
 import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
+import 'package:balasamajam/configs/shared_state.dart';
+import 'package:balasamajam/constants/api_constants.dart';
+import 'package:balasamajam/network/api_enums.dart';
+import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/expense/expense_entry.dart';
 import 'package:balasamajam/screens/payment/payment_history.dart';
@@ -60,7 +64,7 @@ class _MaranasamidhiPersonalEnquiryState
           ),
           SizedBox(width: Responsive.blockSizeHorizontal * 10),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () => _fetchMemberDetails,
               style: LocalThemeData.buttonPrimartColor,
               child: Text("Go", style: LocalThemeData.buttonText)),
         ]),
@@ -69,7 +73,9 @@ class _MaranasamidhiPersonalEnquiryState
             alignment: Alignment.centerLeft,
             child: Text("Mudakkamulla Thuga", style: LocalThemeData.subTitle)),
         TableComponent(
-            headers: _getHeaders(), data: _getData(), rowClickCallback: () {}),
+            headers: _getHeaders(),
+            data: _getData(),
+            rowClickCallback: rowOnClick),
         SizedBox(height: Responsive.blockSizeVertical * 50),
         LongCard(
           mainText: "View Payment History",
@@ -101,5 +107,19 @@ class _MaranasamidhiPersonalEnquiryState
         context,
         MaterialPageRoute(
             builder: (context) => ExpenseEntry(category: "Maranasamidhi")));
+  }
+
+  rowOnClick(row) {}
+
+  _fetchMemberDetails() async {
+    String searchText = searchController.text;
+    Map<String, String> queryParams = {
+      "token": await SharedState.getSharedState(LocalAppState.TOKEN.toString()),
+      "key": searchText
+    };
+    final response = await APIService.sendRequest(
+        requestType: RequestType.GET,
+        url: APIConstants.searchMember,
+        queryParams: queryParams);
   }
 }

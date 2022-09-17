@@ -4,7 +4,15 @@ import 'package:intl/intl.dart';
 
 class MaranamExpense extends StatefulWidget {
   String descriptionText;
-  MaranamExpense({super.key, required this.descriptionText});
+  TextEditingController dateController;
+  TextEditingController nameController;
+  TextEditingController amountController;
+  MaranamExpense(
+      {super.key,
+      required this.descriptionText,
+      required this.dateController,
+      required this.nameController,
+      required this.amountController});
 
   @override
   State<MaranamExpense> createState() => _MaranamExpenseState();
@@ -13,10 +21,6 @@ class MaranamExpense extends StatefulWidget {
 class _MaranamExpenseState extends State<MaranamExpense> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController dateController = TextEditingController();
-    TextEditingController amountController = TextEditingController();
-
     return Column(
       children: [
         Container(
@@ -24,12 +28,12 @@ class _MaranamExpenseState extends State<MaranamExpense> {
               horizontal: Responsive.blockSizeHorizontal * 20,
               vertical: Responsive.blockSizeVertical * 10),
           child: TextField(
-            controller: nameController,
+            controller: widget.nameController,
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.person),
-              border: OutlineInputBorder(),
+              prefixIcon: const Icon(Icons.person),
+              border: const OutlineInputBorder(),
               labelText: widget.descriptionText,
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: const EdgeInsets.all(10),
             ),
           ),
         ),
@@ -40,23 +44,13 @@ class _MaranamExpenseState extends State<MaranamExpense> {
           child: TextField(
             readOnly: true,
             onTap: () async {
-              DateTime? datePicker = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100));
-
-              if (datePicker != null) {
-                String formattedDate =
-                    DateFormat("dd/MM/YYYY").format(datePicker);
-
-                setState(() {
-                  dateController.text = formattedDate;
-                });
-              }
+              String dateString = await _showDatePicker();
+              setState(() {
+                widget.dateController.text = dateString;
+              });
             },
-            controller: dateController,
-            decoration: InputDecoration(
+            controller: widget.dateController,
+            decoration: const InputDecoration(
               prefixIcon: Icon(Icons.calendar_today),
               border: OutlineInputBorder(),
               labelText: "Date",
@@ -69,8 +63,8 @@ class _MaranamExpenseState extends State<MaranamExpense> {
               horizontal: Responsive.blockSizeHorizontal * 20,
               vertical: Responsive.blockSizeVertical * 10),
           child: TextField(
-            controller: amountController,
-            decoration: InputDecoration(
+            controller: widget.amountController,
+            decoration: const InputDecoration(
               prefixIcon: Icon(Icons.currency_rupee),
               border: OutlineInputBorder(),
               labelText: "Amount",
@@ -80,5 +74,20 @@ class _MaranamExpenseState extends State<MaranamExpense> {
         )
       ],
     );
+  }
+
+  Future<String> _showDatePicker() async {
+    DateTime? datePicker = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100));
+
+    String formattedDate = "DD/MM/YYYY";
+
+    if (datePicker != null) {
+      formattedDate = DateFormat("dd/MM/yyyy").format(datePicker);
+    }
+    return formattedDate;
   }
 }

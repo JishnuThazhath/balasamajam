@@ -1,8 +1,16 @@
 import 'package:balasamajam/components/long_card.dart';
 import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
+import 'package:balasamajam/configs/shared_state.dart';
+import 'package:balasamajam/constants/api_constants.dart';
+import 'package:balasamajam/general/models/request_base_model.dart';
+import 'package:balasamajam/network/api_enums.dart';
+import 'package:balasamajam/network/api_helper.dart';
+import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/expense/maranam_expense.dart';
+import 'package:balasamajam/screens/expense/models/expense_response_model.dart';
+import 'package:balasamajam/screens/expense/models/maranam_expense_request_model.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseEntry extends StatefulWidget {
@@ -16,7 +24,11 @@ class ExpenseEntry extends StatefulWidget {
 class _ExpenseEntryState extends State<ExpenseEntry> {
   String? _dropdownValue = "death";
   TextEditingController searchController = TextEditingController();
-  late TextEditingController notesController;
+  TextEditingController dateController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+
+  TextEditingController notesController = TextEditingController();
 
   @override
   void initState() {
@@ -58,14 +70,17 @@ class _ExpenseEntryState extends State<ExpenseEntry> {
           MaranamExpense(
               descriptionText: _dropdownValue == "death"
                   ? "Name"
-                  : "Description of the Expense"),
+                  : "Description of the Expense",
+              amountController: amountController,
+              dateController: dateController,
+              nameController: nameController),
           SizedBox(height: Responsive.blockSizeVertical * 30),
           LongCard(mainText: "Add Notes", callBack: _notesOnClick),
           SizedBox(height: Responsive.blockSizeVertical * 100),
           Align(
             alignment: Alignment.center,
             child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _addExpenseDetails,
                 style: LocalThemeData.longButtonStyle,
                 child: Text("Go", style: LocalThemeData.buttonText)),
           ),
@@ -103,5 +118,57 @@ class _ExpenseEntryState extends State<ExpenseEntry> {
   void _onSubmit() {
     Navigator.of(context).pop(notesController.text);
     notesController.clear();
+  }
+
+  _addExpenseDetails() async {
+    final token =
+        await SharedState.getSharedState(LocalAppState.TOKEN.toString());
+    final expenseType = _dropdownValue == "death" ? "MARANAM" : "OTHERS";
+    MaranamExpenseRequestModel maranamExpenseRequestModel =
+        MaranamExpenseRequestModel(nameController.text, dateController.text,
+            amountController.text, expenseType);
+
+    final json = RequestBaseModel.toJson(
+        RequestBaseModel(token, maranamExpenseRequestModel),
+        (value) => maranamExpenseRequestModel.toJson());
+
+    final response = await APIService.sendRequest(
+        requestType: RequestType.POST,
+        url: APIConstants.addExpense,
+        body: json);
+
+    final expenseResponseModel = APIHelper.filterResponse(
+        apiCallback: apiCallback,
+        response: response,
+        apiOnFailureCallBackWithMessage: apiOnFailureCallBackWithMessage);
+
+    if (expenseResponseModel != null) {
+      _showAfterAddExpenseDlg(expenseResponseModel.message);
+    }
+  }
+
+  apiCallback(json) {
+    return ExpenseResponseModel.fromJson(json);
+  }
+
+  apiOnFailureCallBackWithMessage(
+      APIResponseErrorType errorType, String errorMessage) {
+    _showAfterAddExpenseDlg(errorMessage);
+    return null;
+  }
+
+  _showAfterAddExpenseDlg(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              content: Text(message),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Ok"))
+              ],
+            ));
   }
 }
