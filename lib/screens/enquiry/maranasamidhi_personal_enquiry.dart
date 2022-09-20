@@ -4,9 +4,13 @@ import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/configs/shared_state.dart';
 import 'package:balasamajam/constants/api_constants.dart';
+import 'package:balasamajam/general/models/request_base_model.dart';
 import 'package:balasamajam/network/api_enums.dart';
+import 'package:balasamajam/network/api_helper.dart';
 import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
+import 'package:balasamajam/screens/enquiry/models/maranasamidhi_enquiry_request_model.dart';
+import 'package:balasamajam/screens/enquiry/models/maranasamidhi_enquiry_response_model.dart';
 import 'package:balasamajam/screens/expense/expense_entry.dart';
 import 'package:balasamajam/screens/payment/payment_history.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +28,8 @@ class MaranasamidhiPersonalEnquiry extends StatefulWidget {
 class _MaranasamidhiPersonalEnquiryState
     extends State<MaranasamidhiPersonalEnquiry> {
   TextEditingController searchController = TextEditingController();
+
+  List<List<String>> tableData = [[]];
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +70,7 @@ class _MaranasamidhiPersonalEnquiryState
           ),
           SizedBox(width: Responsive.blockSizeHorizontal * 10),
           ElevatedButton(
-              onPressed: () => _fetchMemberDetails,
+              onPressed: _fetchMemberDetails,
               style: LocalThemeData.buttonPrimartColor,
               child: Text("Go", style: LocalThemeData.buttonText)),
         ]),
@@ -74,7 +80,7 @@ class _MaranasamidhiPersonalEnquiryState
             child: Text("Mudakkamulla Thuga", style: LocalThemeData.subTitle)),
         TableComponent(
             headers: _getHeaders(),
-            data: _getData(),
+            data: tableData,
             rowClickCallback: rowOnClick),
         SizedBox(height: Responsive.blockSizeVertical * 50),
         LongCard(
@@ -113,13 +119,47 @@ class _MaranasamidhiPersonalEnquiryState
 
   _fetchMemberDetails() async {
     String searchText = searchController.text;
-    Map<String, String> queryParams = {
-      "token": await SharedState.getSharedState(LocalAppState.TOKEN.toString()),
-      "key": searchText
-    };
+
+    MaranasamidhiEnquiryRequestModel maranasamidhiEnquiryRequestModel =
+        MaranasamidhiEnquiryRequestModel(searchText);
+
+    final token =
+        await SharedState.getSharedState(LocalAppState.TOKEN.toString());
+
+    final json = RequestBaseModel.toJson(
+        RequestBaseModel(token, maranasamidhiEnquiryRequestModel),
+        (value) => maranasamidhiEnquiryRequestModel.toJson());
+
+    print(json);
+
     final response = await APIService.sendRequest(
-        requestType: RequestType.GET,
+        requestType: RequestType.POST,
         url: APIConstants.searchMember,
-        queryParams: queryParams);
+        body: json);
+
+    final maranasamidhiEnquiryResponse = APIHelper.filterResponse(
+        apiCallback: apiCallback,
+        response: response,
+        apiOnFailureCallBackWithMessage: apiOnFailureCallBackWithMessage);
+
+    if (maranasamidhiEnquiryResponse != null) {
+      setState(() {});
+    }
+  }
+
+  apiCallback(json) {
+    if (json['data'] != null) {
+      var data = json['data'] as List;
+      List<MaranasamidhiEnquiryResponseModel> model = data
+          .map((e) => MaranasamidhiEnquiryResponseModel.fromJson(e))
+          .toList();
+      return model;
+    }
+    return null;
+  }
+
+  apiOnFailureCallBackWithMessage(APIResponseErrorType type, String message) {
+    print("Error Happened! " + message);
+    return null;
   }
 }
