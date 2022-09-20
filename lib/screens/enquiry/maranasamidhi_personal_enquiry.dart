@@ -1,5 +1,4 @@
 import 'package:balasamajam/components/long_card.dart';
-import 'package:balasamajam/components/table_component.dart';
 import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/configs/shared_state.dart';
@@ -9,6 +8,7 @@ import 'package:balasamajam/network/api_enums.dart';
 import 'package:balasamajam/network/api_helper.dart';
 import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
+import 'package:balasamajam/screens/enquiry/member_enquiry_list_component.dart';
 import 'package:balasamajam/screens/enquiry/models/maranasamidhi_enquiry_request_model.dart';
 import 'package:balasamajam/screens/enquiry/models/maranasamidhi_enquiry_response_model.dart';
 import 'package:balasamajam/screens/expense/expense_entry.dart';
@@ -27,6 +27,8 @@ class MaranasamidhiPersonalEnquiry extends StatefulWidget {
 
 class _MaranasamidhiPersonalEnquiryState
     extends State<MaranasamidhiPersonalEnquiry> {
+  List<MaranasamidhiEnquiryResponseModel> entries =
+      <MaranasamidhiEnquiryResponseModel>[];
   TextEditingController searchController = TextEditingController();
 
   List<List<String>> tableData = [[]];
@@ -51,13 +53,13 @@ class _MaranasamidhiPersonalEnquiryState
             ),
           )
         ]),
-        SizedBox(height: Responsive.blockSizeVertical * 100),
+        SizedBox(height: Responsive.blockSizeVertical * 50),
         Text("Maranasamidhi - Personal Enquiry",
             style: LocalThemeData.subTitle),
         SizedBox(height: Responsive.blockSizeVertical * 30),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           SizedBox(
-            width: Responsive.blockSizeHorizontal * 500,
+            width: Responsive.blockSizeHorizontal * 750,
             height: Responsive.blockSizeVertical * 45,
             child: TextField(
               controller: searchController,
@@ -74,19 +76,38 @@ class _MaranasamidhiPersonalEnquiryState
               style: LocalThemeData.buttonPrimartColor,
               child: Text("Go", style: LocalThemeData.buttonText)),
         ]),
-        SizedBox(height: Responsive.blockSizeVertical * 100),
+        SizedBox(height: Responsive.blockSizeVertical * 10),
         Align(
             alignment: Alignment.centerLeft,
-            child: Text("Mudakkamulla Thuga", style: LocalThemeData.subTitle)),
-        TableComponent(
-            headers: _getHeaders(),
-            data: tableData,
-            rowClickCallback: rowOnClick),
-        SizedBox(height: Responsive.blockSizeVertical * 50),
+            child: entries.length > 0
+                ? Text("Mudakkamulla Thuga", style: LocalThemeData.subTitle)
+                : null),
+        SizedBox(height: Responsive.blockSizeVertical * 10),
+        Expanded(
+          child: ListView.separated(
+            addAutomaticKeepAlives: false,
+            itemCount: entries.length,
+            padding: const EdgeInsets.all(2.0),
+            itemBuilder: ((context, index) {
+              return MemberEnquiryListComponent(
+                  name: entries[index].name,
+                  totalMaranavariAmount:
+                      entries[index].totalMaranavariAmount.toString(),
+                  totalMasavariAmount:
+                      entries[index].totalMasavariAmount.toString(),
+                  totalPayableAmount:
+                      entries[index].totalPayableAmount.toString());
+              ;
+            }),
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider(height: 5.0),
+          ),
+        ),
         LongCard(
           mainText: "View Payment History",
           callBack: () => _paymentHistory(),
-        )
+        ),
+        SizedBox(height: Responsive.blockSizeVertical * 30),
       ]),
     ));
   }
@@ -120,6 +141,10 @@ class _MaranasamidhiPersonalEnquiryState
   _fetchMemberDetails() async {
     String searchText = searchController.text;
 
+    setState(() {
+      entries = [];
+    });
+
     MaranasamidhiEnquiryRequestModel maranasamidhiEnquiryRequestModel =
         MaranasamidhiEnquiryRequestModel(searchText);
 
@@ -130,20 +155,21 @@ class _MaranasamidhiPersonalEnquiryState
         RequestBaseModel(token, maranasamidhiEnquiryRequestModel),
         (value) => maranasamidhiEnquiryRequestModel.toJson());
 
-    print(json);
-
     final response = await APIService.sendRequest(
         requestType: RequestType.POST,
         url: APIConstants.searchMember,
         body: json);
 
-    final maranasamidhiEnquiryResponse = APIHelper.filterResponse(
-        apiCallback: apiCallback,
-        response: response,
-        apiOnFailureCallBackWithMessage: apiOnFailureCallBackWithMessage);
+    List<MaranasamidhiEnquiryResponseModel>? maranasamidhiEnquiryResponse =
+        APIHelper.filterResponse(
+            apiCallback: apiCallback,
+            response: response,
+            apiOnFailureCallBackWithMessage: apiOnFailureCallBackWithMessage);
 
     if (maranasamidhiEnquiryResponse != null) {
-      setState(() {});
+      setState(() {
+        entries = maranasamidhiEnquiryResponse;
+      });
     }
   }
 
