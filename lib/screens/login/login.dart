@@ -141,7 +141,7 @@ class _LoginScreen extends State<LoginScreen> {
   }
 
   getLoginResponse(json) {
-    return LoginResponse.fromJson(json);
+    return LoginResponse.fromJson(json['data']);
   }
 
   _setLoginErrorMessage(String message) {
