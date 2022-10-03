@@ -29,4 +29,12 @@ class SharedState {
     }
     preferences?.setString(key, value);
   }
+
+  static Future<void> removeState(String key) async {
+    if (preferences == null) {
+      await init();
+    }
+
+    preferences?.remove(key);
+  }
 }

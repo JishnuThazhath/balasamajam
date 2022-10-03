@@ -1,66 +1,90 @@
 import 'package:balasamajam/components/template.dart';
-import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
-import 'package:balasamajam/screens/enquiry/maranasamidhi_personal_enquiry.dart';
-import 'package:balasamajam/screens/pirivu/pirivu_details.dart';
+import 'package:balasamajam/screens/maranasamidhi/collection/collection_page.dart';
+import 'package:balasamajam/screens/maranasamidhi/expense/expense_page.dart';
+import 'package:balasamajam/screens/maranasamidhi/home/landing_page.dart';
+import 'package:balasamajam/screens/maranasamidhi/member/member_page.dart';
+import 'package:balasamajam/screens/maranasamidhi/menu_card.dart';
+import 'package:balasamajam/screens/maranasamidhi/payment/payment_page.dart';
 import 'package:flutter/material.dart';
 
-class MaranasamidhiHome extends StatelessWidget {
+class MaranasamidhiHome extends StatefulWidget {
   const MaranasamidhiHome({super.key});
 
   static const String routeName = "MaranasamidhiHome";
 
   @override
+  State<MaranasamidhiHome> createState() => _MaranasamidhiHomeState();
+}
+
+class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
+  Widget currentWidgetLoaded = LandingPage();
+  @override
   Widget build(BuildContext context) {
     return Template(
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          SizedBox(
-            width: Responsive.blockSizeHorizontal * 800,
-            height: Responsive.blockSizeVertical * 100,
-            child: ElevatedButton(
-                onPressed: () => _pirivu_details(context),
-                style: LocalThemeData.buttonPrimartColor,
-                child: Text("Pirivu Vivarangal",
-                    style: LocalThemeData.buttonText)),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MenuCard(
+                    name: "Home",
+                    isSelected: true,
+                    onClickCallBack: _menuSelect,
+                  ),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Payment",
+                      isSelected: false,
+                      onClickCallBack: _menuSelect),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Expense",
+                      isSelected: false,
+                      onClickCallBack: _menuSelect),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Member",
+                      isSelected: false,
+                      onClickCallBack: _menuSelect),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Collection",
+                      isSelected: false,
+                      onClickCallBack: _menuSelect),
+                ]),
           ),
-          SizedBox(height: Responsive.blockSizeVertical * 30),
-          SizedBox(
-            width: Responsive.blockSizeHorizontal * 800,
-            height: Responsive.blockSizeVertical * 100,
-            child: ElevatedButton(
-                onPressed: () => _personal_enquiry(context),
-                style: LocalThemeData.buttonPrimartColor,
-                child:
-                    Text("Personal Enquiry", style: LocalThemeData.buttonText)),
-          ),
-          SizedBox(height: Responsive.blockSizeVertical * 30),
-          SizedBox(
-            width: Responsive.blockSizeHorizontal * 800,
-            height: Responsive.blockSizeVertical * 100,
-            child: ElevatedButton(
-                onPressed: () => _chilav_details(context),
-                style: LocalThemeData.buttonPrimartColor,
-                child: Text("Chilav Vivarangal",
-                    style: LocalThemeData.buttonText)),
-          ),
+          Container(
+            child: currentWidgetLoaded,
+          )
         ],
-      )),
+      ),
     );
   }
 
-  _pirivu_details(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PirivuDetails(title: 'Maranasamidhi')));
+  _menuSelect(String selection) {
+    setState(() {
+      switch (selection) {
+        case "Home":
+          currentWidgetLoaded = LandingPage();
+          break;
+        case "Payment":
+          currentWidgetLoaded = PaymentPage();
+          break;
+        case "Expense":
+          currentWidgetLoaded = ExpensePage();
+          break;
+        case "Member":
+          currentWidgetLoaded = MemberPage();
+          break;
+        case "Collection":
+          currentWidgetLoaded = CollectionPage();
+          break;
+        default:
+      }
+    });
   }
-
-  _personal_enquiry(BuildContext context) {
-    Navigator.pushNamed(context, MaranasamidhiPersonalEnquiry.routeName);
-  }
-
-  _chilav_details(BuildContext context) {}
 }

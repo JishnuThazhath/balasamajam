@@ -8,11 +8,10 @@ import 'package:balasamajam/network/api_enums.dart';
 import 'package:balasamajam/network/api_helper.dart';
 import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
-import 'package:balasamajam/screens/enquiry/member_enquiry_list_component.dart';
-import 'package:balasamajam/screens/enquiry/models/maranasamidhi_enquiry_request_model.dart';
-import 'package:balasamajam/screens/enquiry/models/maranasamidhi_enquiry_response_model.dart';
-import 'package:balasamajam/screens/expense/expense_entry.dart';
-import 'package:balasamajam/screens/payment/payment_history.dart';
+import 'package:balasamajam/screens/maranasamidhi/expense/expense_entry.dart';
+import 'package:balasamajam/screens/maranasamidhi/member/member_enquiry_list_component.dart';
+import 'package:balasamajam/screens/maranasamidhi/member/models/maranasamidhi_enquiry_request_model.dart';
+import 'package:balasamajam/screens/maranasamidhi/member/models/maranasamidhi_enquiry_response_model.dart';
 import 'package:flutter/material.dart';
 
 class MaranasamidhiPersonalEnquiry extends StatefulWidget {
@@ -123,10 +122,10 @@ class _MaranasamidhiPersonalEnquiryState
   }
 
   _paymentHistory() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PaymentHistory(name: "Edward Cullen")));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => PaymentHistory(name: "Edward Cullen")));
   }
 
   void _addPayment() {

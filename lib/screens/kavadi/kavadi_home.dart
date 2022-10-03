@@ -1,8 +1,6 @@
 import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
-import 'package:balasamajam/screens/enquiry/person_enquiry.dart';
-import 'package:balasamajam/screens/pirivu/pirivu_details.dart';
 import 'package:flutter/material.dart';
 
 class KavadiHome extends StatelessWidget {
@@ -43,15 +41,15 @@ class KavadiHome extends StatelessWidget {
   }
 
   _pirivu_details(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PirivuDetails(
-                  title: 'Kavadi',
-                )));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => PirivuDetails(
+    //               title: 'Kavadi',
+    //             )));
   }
 
   _personal_enquiry(BuildContext context) {
-    Navigator.pushNamed(context, PersonEnquiry.routeName);
+    // Navigator.pushNamed(context, PersonEnquiry.routeName);
   }
 }

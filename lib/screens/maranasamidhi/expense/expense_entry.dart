@@ -8,9 +8,9 @@ import 'package:balasamajam/network/api_enums.dart';
 import 'package:balasamajam/network/api_helper.dart';
 import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
-import 'package:balasamajam/screens/expense/maranam_expense.dart';
-import 'package:balasamajam/screens/expense/models/expense_response_model.dart';
-import 'package:balasamajam/screens/expense/models/maranam_expense_request_model.dart';
+import 'package:balasamajam/screens/maranasamidhi/expense/maranam_expense.dart';
+import 'package:balasamajam/screens/maranasamidhi/expense/models/expense_response_model.dart';
+import 'package:balasamajam/screens/maranasamidhi/expense/models/maranam_expense_request_model.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseEntry extends StatefulWidget {

@@ -22,6 +22,12 @@ class LocalThemeData {
       fontSize: Responsive.blockSizeVertical * 20,
       fontWeight: FontWeight.bold);
 
+  static TextStyle labelTextW = TextStyle(
+      color: Colors.white,
+      fontFamily: 'Trueno',
+      fontSize: Responsive.blockSizeVertical * 20,
+      fontWeight: FontWeight.bold);
+
   static TextStyle stypePrimaryText = TextStyle(
       fontFamily: 'Trueno',
       fontSize: Responsive.blockSizeVertical * 30,
