@@ -27,7 +27,7 @@ class _MenuCardState extends State<MenuCard> {
             color: widget.isSelected == true
                 ? Colors.grey[300]
                 : LocalThemeData.primaryColor,
-            borderRadius: BorderRadius.circular(10)),
+            borderRadius: BorderRadius.circular(5)),
         padding: EdgeInsets.symmetric(
             horizontal: Responsive.blockSizeHorizontal * 15,
             vertical: Responsive.blockSizeVertical * 10),

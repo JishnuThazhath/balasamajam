@@ -2,6 +2,7 @@ import 'package:balasamajam/index.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
 import 'package:balasamajam/screens/login/login.dart';
+import 'package:balasamajam/screens/maranasamidhi/expense/add/add_expense.dart';
 import 'package:balasamajam/screens/maranasamidhi/maranasamidhi_home.dart';
 import 'package:balasamajam/screens/maranasamidhi/member/add/add_member_page.dart';
 import 'package:balasamajam/screens/maranasamidhi/member/person_enquiry.dart';
@@ -19,4 +20,5 @@ Map<String, WidgetBuilder> routes = {
   MaranasamidhiHome.routeName: (context) => const MaranasamidhiHome(),
   AddPaymentPage.routeName: (context) => AddPaymentPage(),
   AddMemberPage.routeName: (context) => AddMemberPage(),
+  AddExpense.routeName: (context) => AddExpense(),
 };

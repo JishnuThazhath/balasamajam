@@ -1,1 +1,1 @@
-enum ExpenseType { death, others }
+enum ExpenseType { ALL, MARANAM, OTHERS }

@@ -29,7 +29,7 @@ class _PaymentPageState extends State<PaymentPage> {
     DateTime now = DateTime.now();
     String formattedNow = DateFormat("dd/MM/yyyy").format(now);
     dateController.text = formattedNow;
-    _fetchPayments(formattedNow);
+    _fetchPayments();
     super.initState();
   }
 
@@ -55,10 +55,7 @@ class _PaymentPageState extends State<PaymentPage> {
               children: [
                 GestureDetector(
                     onTap: () async {
-                      String dateString = await _showDatePicker();
-                      setState(() {
-                        dateController.text = dateString;
-                      });
+                      await _showDatePicker();
                     },
                     child: const Icon(Icons.calendar_month_outlined)),
                 SizedBox(width: Responsive.blockSizeHorizontal * 5),
@@ -72,19 +69,26 @@ class _PaymentPageState extends State<PaymentPage> {
           const Divider(thickness: 2),
           Expanded(
               child: payments.isNotEmpty
-                  ? ListView.separated(
-                      addAutomaticKeepAlives: false,
-                      itemBuilder: (context, index) {
-                        return DataCard(
-                            callBack: _callBack,
-                            collectedFrom: payments[index].memberFullName,
-                            paymentDate: payments[index].paymentDate,
-                            paymentAmount: payments[index].amount.toString(),
-                            collectedBy: payments[index].collectedByFullName);
+                  ? RefreshIndicator(
+                      onRefresh: () async {
+                        await _fetchPayments();
                       },
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: Responsive.blockSizeVertical * 10),
-                      itemCount: payments.length)
+                      child: ListView.separated(
+                          addAutomaticKeepAlives: false,
+                          itemBuilder: (context, index) {
+                            return DataCard(
+                                callBack: _callBack,
+                                collectedFrom: payments[index].memberFullName,
+                                paymentDate: payments[index].paymentDate,
+                                paymentAmount:
+                                    payments[index].amount.toString(),
+                                collectedBy:
+                                    payments[index].collectedByFullName);
+                          },
+                          separatorBuilder: (context, index) => SizedBox(
+                              height: Responsive.blockSizeVertical * 10),
+                          itemCount: payments.length),
+                    )
                   : const Center(child: Text("No Data to display...")))
         ]),
       ),
@@ -102,20 +106,23 @@ class _PaymentPageState extends State<PaymentPage> {
 
     if (datePicker != null) {
       formattedDate = DateFormat("dd/MM/yyyy").format(datePicker);
-      _fetchPayments(formattedDate);
+      _fetchPayments();
     }
+    setState(() {
+      dateController.text = formattedDate;
+    });
     return formattedDate;
   }
 
   _callBack() {}
 
-  _fetchPayments(String formattedDate) async {
+  _fetchPayments() async {
     setState(() {
       payments = [];
     });
 
     FetchPaymentRequestModel fetchPaymentRequestModel =
-        FetchPaymentRequestModel(formattedDate, "", "");
+        FetchPaymentRequestModel(dateController.text, "", "");
     final token =
         await SharedState.getSharedState(LocalAppState.TOKEN.toString());
 

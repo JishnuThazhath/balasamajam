@@ -7,10 +7,11 @@ class APIConstants {
   static const String fetchMembers = "$apiEndpoint/fetchMembers";
   static const String addMember = "$apiEndpoint/addMember";
 
-  static const String addExpense = "$apiEndpoint/expense/add";
-
   static const String fetchPayment = "$apiEndpoint/fetchPayments";
   static const String addPayment = "$apiEndpoint/addPayment";
+
+  static const String fetchExpenses = "$apiEndpoint/fetchExpenses";
+  static const String addExpense = "$apiEndpoint/addExpense";
 
   static const String getAllMembers = "$apiEndpoint/getAllMembers";
 }
