@@ -16,6 +16,12 @@ class SharedState {
     return value;
   }
 
+  static String? getSharedStateWithoutWait(String key) {
+    String? value = preferences?.getString(key);
+
+    return value;
+  }
+
   static Future<void> putIsLoggedInState(String key, bool value) async {
     if (preferences == null) {
       await init();

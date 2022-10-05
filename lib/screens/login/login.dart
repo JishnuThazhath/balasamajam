@@ -98,10 +98,11 @@ class _LoginScreen extends State<LoginScreen> {
       final validateLoginResponse = await validateLogin(token);
       if (validateLoginResponse != null &&
           validateLoginResponse.statusCode == 200) {
-        print("you are logged in...");
         SharedState.putIsLoggedInState(
             LocalAppState.IS_LOGGED_IN.toString(), true);
         SharedState.saveLoginToken(LocalAppState.TOKEN.toString(), token);
+        SharedState.saveLoginToken(
+            LocalAppState.ADMIN_ID.toString(), loginResponse.adminId);
         Navigator.pushNamedAndRemoveUntil(
             context, HomeScreen.routeName, (route) => false);
       }

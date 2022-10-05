@@ -2,7 +2,6 @@ import 'package:balasamajam/components/hero_dialog_route.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/configs/shared_state.dart';
 import 'package:balasamajam/constants/api_constants.dart';
-import 'package:balasamajam/routes.dart';
 import 'package:balasamajam/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
@@ -71,14 +70,11 @@ class _UserLoginInfoDetailedState extends State<UserLoginInfoDetailed> {
                         style: LocalThemeData.subTitle),
                     const Divider(color: Colors.white, thickness: 0.4),
                     Row(children: [
-                      Icon(Icons.person),
-                      SizedBox(width: 20.0),
+                      const Icon(Icons.person),
+                      const SizedBox(width: 20.0),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text("Jishnu S"),
-                          Text("jishnuanchery@gmail.com")
-                        ],
+                        children: const [Text("Admin")],
                       )
                     ]),
                     const Divider(color: Colors.white, thickness: 0.4),

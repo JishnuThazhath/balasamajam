@@ -5,14 +5,16 @@ class ResponseBaseModel<T> {
 
   ResponseBaseModel(this.status, this.message, this.data);
 
-  ResponseBaseModel<T> ResponseBaseModelFromJson<T>(
-    Map<String, dynamic> json,
+  static ResponseBaseModel<T> fromJson<T>(
+    Map<String, T> json,
     T Function(Object? json) fromJsonT,
   ) =>
       ResponseBaseModel<T>(
         json['status'] as String,
         json['message'] as String,
-        (json['data'] as List<dynamic>).map(fromJsonT).toList(),
+        json['data'] == null
+            ? []
+            : (json['data'] as List<T>).map((e) => fromJsonT(e)).toList(),
       );
 
   Map<String, dynamic> ResponseBaseModelToJson<T>(

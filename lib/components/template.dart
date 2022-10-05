@@ -19,7 +19,8 @@ class Template extends StatelessWidget {
           child: Column(
             children: [
               const UserLoginInfo(),
-              SizedBox(height: Responsive.blockSizeVertical * 30),
+              Divider(thickness: 2, height: Responsive.blockSizeVertical * 30),
+              // SizedBox(height: Responsive.blockSizeVertical * 30),
               Expanded(child: child)
             ],
           ),

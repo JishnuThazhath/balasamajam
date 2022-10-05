@@ -5,6 +5,7 @@ import 'package:balasamajam/screens/login/login.dart';
 import 'package:balasamajam/screens/maranasamidhi/maranasamidhi_home.dart';
 import 'package:balasamajam/screens/maranasamidhi/member/maranasamidhi_personal_enquiry.dart';
 import 'package:balasamajam/screens/maranasamidhi/member/person_enquiry.dart';
+import 'package:balasamajam/screens/maranasamidhi/payment/add/add_payment_page.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -21,4 +22,5 @@ Map<String, WidgetBuilder> routes = {
   MaranasamidhiPersonalEnquiry.routeName: (context) =>
       MaranasamidhiPersonalEnquiry(),
   //PaymentHistory.routeName: (context) => PaymentHistory(),
+  AddPaymentPage.routeName: (context) => AddPaymentPage(),
 };

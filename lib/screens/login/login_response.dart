@@ -9,9 +9,10 @@ class LoginResponse {
   final String lastName;
   final String phone;
   final String address;
+  final String adminId;
 
-  LoginResponse(
-      this.token, this.firstName, this.lastName, this.phone, this.address);
+  LoginResponse(this.token, this.firstName, this.lastName, this.phone,
+      this.address, this.adminId);
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
