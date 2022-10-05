@@ -3,11 +3,15 @@ class APIConstants {
 
   //static const String apiEndpoint = "http://65.2.34.94:8080";
   static const String apiEndpoint = "http://localhost:8080";
-  static const String searchMember = "$apiEndpoint/member/payable";
+
+  static const String fetchMembers = "$apiEndpoint/fetchMembers";
   static const String addMember = "$apiEndpoint/addMember";
+
   static const String addExpense = "$apiEndpoint/expense/add";
-  static const String fetchPayment = "$apiEndpoint/fetchPayment";
+
+  static const String fetchPayment = "$apiEndpoint/fetchPayments";
   static const String addPayment = "$apiEndpoint/addPayment";
+
   static const String getAllMembers = "$apiEndpoint/getAllMembers";
 }
 

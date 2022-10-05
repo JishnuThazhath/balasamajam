@@ -8,38 +8,34 @@ import 'package:balasamajam/network/api_enums.dart';
 import 'package:balasamajam/network/api_helper.dart';
 import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
-import 'package:balasamajam/screens/maranasamidhi/payment/add/models/add_payment_request_model.dart';
+import 'package:balasamajam/screens/maranasamidhi/member/add/models/add_member_request_model.dart';
 import 'package:balasamajam/screens/maranasamidhi/payment/add/models/add_payment_response_model.dart';
-import 'package:balasamajam/utils/common_api_helper.dart';
-import 'package:balasamajam/utils/models/member_response_model.dart';
 import 'package:balasamajam/utils/on_screen_message_util.dart';
 import 'package:flutter/material.dart';
 
-class AddPaymentPage extends StatefulWidget {
-  const AddPaymentPage({super.key});
+class AddMemberPage extends StatefulWidget {
+  static String routeName = "AddMemberPage";
 
-  static String routeName = "AddPaymentPage";
+  const AddMemberPage({super.key});
 
   @override
-  State<AddPaymentPage> createState() => _AddPaymentPageState();
+  State<AddMemberPage> createState() => _MemberPageState();
 }
 
-class _AddPaymentPageState extends State<AddPaymentPage> {
+class _MemberPageState extends State<AddMemberPage> {
   final _formKey = GlobalKey<FormState>();
-
-  List<DropdownMenuItem<String>> membersDropList = [];
 
   String? snackBarMessage;
 
-  String? memberId;
-  double? paymentAmount;
-  String? comments;
+  String? fullName;
+  String? localizedFullName;
+  String? phone;
+  String? address; //This field can be empty
   String? adminId;
 
   @override
   void initState() {
     adminId = _getAdminIdFromState();
-    _populateMembersDropList();
     super.initState();
   }
 
@@ -51,7 +47,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
       children: [
         Icon(
             size: Responsive.blockSizeVertical * 300,
-            Icons.currency_rupee_sharp),
+            Icons.person_add_alt_1_sharp),
         Expanded(
           child: Form(
               key: _formKey,
@@ -61,29 +57,45 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child:
-                          Text("Add Payment", style: LocalThemeData.subTitle)),
+                          Text("Add Member", style: LocalThemeData.subTitle)),
                   const Divider(thickness: 2),
-                  DropdownButtonFormField(
-                    onSaved: (newValue) {
-                      memberId = newValue;
-                    },
-                    decoration: InputDecoration(
-                        hintText: "Select Member",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
-                    items: membersDropList,
-                    onChanged: (value) {},
-                  ),
                   SizedBox(height: Responsive.blockSizeVertical * 10),
                   TextFormField(
                     onSaved: (newValue) {
-                      paymentAmount = double.parse(newValue!);
+                      fullName = newValue;
                     },
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "Amount"),
+                        border: OutlineInputBorder(), hintText: "Full Name"),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Amount cannot be empty";
+                        return "Full Name cannot be empty";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    onSaved: (newValue) {
+                      localizedFullName = newValue;
+                    },
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Enter Name in Malayalam"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Name filed cannot be empty";
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    onSaved: (newValue) {
+                      phone = newValue;
+                    },
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), hintText: "Phone Number"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Phone Numer cannot be empty";
                       }
                       return null;
                     },
@@ -94,10 +106,10 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                       maxLines: 5,
                       maxLength: 100,
                       onSaved: (newValue) {
-                        comments = newValue;
+                        address = newValue;
                       },
                       decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: "Comments")),
+                          border: OutlineInputBorder(), hintText: "Address")),
                   SizedBox(
                     height: Responsive.blockSizeVertical * 50,
                     width: Responsive.blockSizeHorizontal * 500,
@@ -113,7 +125,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
 
-                            _addPaymentRequest();
+                            _addMemberRequest();
                           }
                         },
                         child:
@@ -132,31 +144,19 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     return id;
   }
 
-  _populateMembersDropList() async {
-    List<MemberResponseModel> members = await CommonApiHelper.getAllMembers();
-    setState(() {
-      for (var element in members) {
-        membersDropList.add(DropdownMenuItem(
-            value: element.memberId, child: Text(element.memberFullName)));
-      }
-    });
-  }
-
-  void _addPaymentRequest() async {
-    AddPaymentRequestModel addPaymentRequestModel =
-        AddPaymentRequestModel(memberId!, adminId!, paymentAmount!, comments!);
+  void _addMemberRequest() async {
+    AddMemberRequestModel addMemberRequestModel =
+        AddMemberRequestModel(fullName!, address!, phone!, localizedFullName!);
 
     final token =
         await SharedState.getSharedState(LocalAppState.TOKEN.toString());
 
     final json = RequestBaseModel.toJson(
-        RequestBaseModel(token, addPaymentRequestModel),
-        (value) => addPaymentRequestModel.toJson());
+        RequestBaseModel(token, addMemberRequestModel),
+        (value) => addMemberRequestModel.toJson());
 
     final response = await APIService.sendRequest(
-        requestType: RequestType.POST,
-        url: APIConstants.addPayment,
-        body: json);
+        requestType: RequestType.POST, url: APIConstants.addMember, body: json);
 
     ResponseBaseModel? responseBaseModel = APIHelper.filterResponse(
         apiCallback: _apiCallback,
@@ -166,13 +166,6 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     if (responseBaseModel != null && responseBaseModel.status == "OK") {
       OnScreenMessageUtil.showSnackBarBottom(
           responseBaseModel.message, context, OnScreenMessageUtil.GREEN);
-    } else {
-      OnScreenMessageUtil.showSnackBarBottom(
-          responseBaseModel == null
-              ? "Something went wrong"
-              : responseBaseModel.message,
-          context,
-          OnScreenMessageUtil.GREEN);
     }
   }
 
@@ -186,7 +179,8 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
   }
 
   _apiOnFailureCallBackWithMessage(APIResponseErrorType p1, String p2) {
-    print("Error while adding payment ${p2}");
+    OnScreenMessageUtil.showSnackBarBottom(
+        "Error while adding payment ${p2}", context, OnScreenMessageUtil.RED);
     return null;
   }
 }

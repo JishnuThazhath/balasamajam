@@ -19,6 +19,7 @@ class MaranasamidhiHome extends StatefulWidget {
 
 class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
   Widget currentWidgetLoaded = LandingPage();
+  String selectedMenuOption = "Home";
   @override
   Widget build(BuildContext context) {
     return Template(
@@ -32,28 +33,28 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
                 children: [
                   MenuCard(
                     name: "Home",
-                    isSelected: true,
+                    isSelected: selectedMenuOption == "Home",
                     onClickCallBack: _menuSelect,
                   ),
                   SizedBox(width: Responsive.blockSizeHorizontal * 10),
                   MenuCard(
                       name: "Payment",
-                      isSelected: false,
+                      isSelected: selectedMenuOption == "Payment",
                       onClickCallBack: _menuSelect),
                   SizedBox(width: Responsive.blockSizeHorizontal * 10),
                   MenuCard(
                       name: "Expense",
-                      isSelected: false,
+                      isSelected: selectedMenuOption == "Expense",
                       onClickCallBack: _menuSelect),
                   SizedBox(width: Responsive.blockSizeHorizontal * 10),
                   MenuCard(
                       name: "Member",
-                      isSelected: false,
+                      isSelected: selectedMenuOption == "Member",
                       onClickCallBack: _menuSelect),
                   SizedBox(width: Responsive.blockSizeHorizontal * 10),
                   MenuCard(
                       name: "Collection",
-                      isSelected: false,
+                      isSelected: selectedMenuOption == "Collection",
                       onClickCallBack: _menuSelect),
                 ]),
           ),
@@ -69,19 +70,26 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
     setState(() {
       switch (selection) {
         case "Home":
-          currentWidgetLoaded = LandingPage();
+          currentWidgetLoaded = const LandingPage();
+          setState(() {
+            selectedMenuOption = "Home";
+          });
           break;
         case "Payment":
-          currentWidgetLoaded = PaymentPage();
+          currentWidgetLoaded = const PaymentPage();
+          selectedMenuOption = "Payment";
           break;
         case "Expense":
-          currentWidgetLoaded = ExpensePage();
+          currentWidgetLoaded = const ExpensePage();
+          selectedMenuOption = "Expense";
           break;
         case "Member":
-          currentWidgetLoaded = MemberPage();
+          currentWidgetLoaded = const MemberPage();
+          selectedMenuOption = "Member";
           break;
         case "Collection":
-          currentWidgetLoaded = CollectionPage();
+          currentWidgetLoaded = const CollectionPage();
+          selectedMenuOption = "Collection";
           break;
         default:
       }

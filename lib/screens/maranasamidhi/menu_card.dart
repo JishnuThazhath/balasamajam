@@ -24,14 +24,18 @@ class _MenuCardState extends State<MenuCard> {
       onTap: () => widget.onClickCallBack!(widget.name),
       child: Container(
         decoration: BoxDecoration(
-            color: LocalThemeData.primaryColor,
+            color: widget.isSelected == true
+                ? Colors.grey[300]
+                : LocalThemeData.primaryColor,
             borderRadius: BorderRadius.circular(10)),
         padding: EdgeInsets.symmetric(
             horizontal: Responsive.blockSizeHorizontal * 15,
             vertical: Responsive.blockSizeVertical * 10),
         child: Text(
           widget.name,
-          style: LocalThemeData.labelTextW,
+          style: widget.isSelected == true
+              ? LocalThemeData.labelTextB
+              : LocalThemeData.labelTextW,
         ),
       ),
     );

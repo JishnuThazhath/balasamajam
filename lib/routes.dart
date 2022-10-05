@@ -3,7 +3,7 @@ import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
 import 'package:balasamajam/screens/login/login.dart';
 import 'package:balasamajam/screens/maranasamidhi/maranasamidhi_home.dart';
-import 'package:balasamajam/screens/maranasamidhi/member/maranasamidhi_personal_enquiry.dart';
+import 'package:balasamajam/screens/maranasamidhi/member/add/add_member_page.dart';
 import 'package:balasamajam/screens/maranasamidhi/member/person_enquiry.dart';
 import 'package:balasamajam/screens/maranasamidhi/payment/add/add_payment_page.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
@@ -16,11 +16,7 @@ Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => const HomeScreen(),
   PersonEnquiry.routeName: (context) => PersonEnquiry(),
   KavadiHome.routeName: (context) => const KavadiHome(),
-  // PirivuDetails.routeName: (context) => PirivuDetails(),
-  //WeeklyPirivuDetails.routeName: (context) => WeeklyPirivuDetails(),
   MaranasamidhiHome.routeName: (context) => const MaranasamidhiHome(),
-  MaranasamidhiPersonalEnquiry.routeName: (context) =>
-      MaranasamidhiPersonalEnquiry(),
-  //PaymentHistory.routeName: (context) => PaymentHistory(),
   AddPaymentPage.routeName: (context) => AddPaymentPage(),
+  AddMemberPage.routeName: (context) => AddMemberPage(),
 };
