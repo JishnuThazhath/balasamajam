@@ -45,37 +45,40 @@ class DataCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                        padding: const EdgeInsets.all(3.0),
-                        color: Colors.grey[300],
-                        child: Column(
-                          children: [
-                            const Text("MARANAVARI",
-                                style: TextStyle(fontSize: 10)),
-                            Text(maranavari, style: LocalThemeData.labelTextB),
-                          ],
-                        )),
-                    SizedBox(width: Responsive.blockSizeHorizontal * 10),
-                    Container(
-                        padding: const EdgeInsets.all(3.0),
-                        color: Colors.grey[300],
-                        child: Column(
-                          children: [
-                            const Text("MASAVARI",
-                                style: TextStyle(fontSize: 10)),
-                            Text(masavari, style: LocalThemeData.labelTextB),
-                          ],
-                        )),
-                    SizedBox(width: Responsive.blockSizeHorizontal * 10),
-                    Container(
-                        padding: const EdgeInsets.all(3.0),
-                        color: Colors.grey[300],
-                        child: Column(
-                          children: [
-                            const Text("TOTAL", style: TextStyle(fontSize: 10)),
-                            Text(total, style: LocalThemeData.labelTextB),
-                          ],
-                        )),
+                    Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(3.0),
+                          color: Colors.grey[300],
+                          child: const Text("MARANAVARI",
+                              style: TextStyle(fontSize: 10)),
+                        ),
+                        Text(maranavari, style: LocalThemeData.labelTextB),
+                      ],
+                    ),
+                    SizedBox(width: Responsive.blockSizeHorizontal * 20),
+                    Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(3.0),
+                          color: Colors.grey[300],
+                          child: const Text("MASAVARI",
+                              style: TextStyle(fontSize: 10)),
+                        ),
+                        Text(masavari, style: LocalThemeData.labelTextB),
+                      ],
+                    ),
+                    SizedBox(width: Responsive.blockSizeHorizontal * 20),
+                    Column(
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.all(3.0),
+                            color: Colors.grey[300],
+                            child: const Text("TOTAL",
+                                style: TextStyle(fontSize: 10))),
+                        Text(total, style: LocalThemeData.labelTextB),
+                      ],
+                    ),
                   ],
                 )
               ],
