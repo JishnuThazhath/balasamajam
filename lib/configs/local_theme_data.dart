@@ -10,7 +10,8 @@ class LocalThemeData {
   static TextStyle subTitle = TextStyle(
       fontFamily: 'Trueno',
       fontSize: Responsive.blockSizeVertical * 22,
-      fontWeight: FontWeight.bold);
+      fontWeight: FontWeight.bold,
+      color: Colors.black);
 
   static TextStyle buttonText = TextStyle(
       fontFamily: 'Trueno',
@@ -40,8 +41,9 @@ class LocalThemeData {
       fontWeight: FontWeight.bold,
       color: primaryColor);
 
-  static const primaryColor = Color(0xff6175FA);
-  static Color? backgroundColor = Colors.white;
+  static const primaryColor = Colors.blueAccent;
+  static Color? backgroundColor =
+      Colors.grey[50]; //Color.fromARGB(222, 248, 247, 245);
 
   static ButtonStyle buttonPrimartColor =
       ElevatedButton.styleFrom(backgroundColor: primaryColor);

@@ -41,100 +41,104 @@ class _MemberPageState extends State<AddMemberPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Template(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-            size: Responsive.blockSizeVertical * 300,
-            Icons.person_add_alt_1_sharp),
-        Expanded(
-          child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child:
-                          Text("Add Member", style: LocalThemeData.subTitle)),
-                  const Divider(thickness: 2),
-                  SizedBox(height: Responsive.blockSizeVertical * 10),
-                  TextFormField(
-                    onSaved: (newValue) {
-                      fullName = newValue;
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "Full Name"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Full Name cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    onSaved: (newValue) {
-                      localizedFullName = newValue;
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Enter Name in Malayalam"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Name filed cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    onSaved: (newValue) {
-                      phone = newValue;
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "Phone Number"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Phone Numer cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: Responsive.blockSizeVertical * 10),
-                  TextFormField(
-                      minLines: 1,
-                      maxLines: 5,
-                      maxLength: 100,
+    return Scaffold(
+        body: SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+              size: Responsive.blockSizeVertical * 300,
+              Icons.person_add_alt_1_sharp),
+          Expanded(
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child:
+                            Text("Add Member", style: LocalThemeData.subTitle)),
+                    const Divider(thickness: 2),
+                    SizedBox(height: Responsive.blockSizeVertical * 10),
+                    TextFormField(
                       onSaved: (newValue) {
-                        address = newValue;
+                        fullName = newValue;
                       },
                       decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: "Address")),
-                  SizedBox(
-                    height: Responsive.blockSizeVertical * 50,
-                    width: Responsive.blockSizeHorizontal * 500,
-                    child: OutlinedButton(
-                        style: ButtonStyle(backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>((states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return LocalThemeData.primaryColor;
-                        })),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-
-                            _addMemberRequest();
-                          }
+                          border: OutlineInputBorder(), hintText: "Full Name"),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Full Name cannot be empty";
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      onSaved: (newValue) {
+                        localizedFullName = newValue;
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Enter Name in Malayalam"),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Name filed cannot be empty";
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      onSaved: (newValue) {
+                        phone = newValue;
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Phone Number"),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Phone Numer cannot be empty";
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: Responsive.blockSizeVertical * 10),
+                    TextFormField(
+                        minLines: 1,
+                        maxLines: 5,
+                        maxLength: 100,
+                        onSaved: (newValue) {
+                          address = newValue;
                         },
-                        child:
-                            Text("Submit", style: LocalThemeData.labelTextW)),
-                  )
-                ],
-              )),
-        )
-      ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(), hintText: "Address")),
+                    SizedBox(
+                      height: Responsive.blockSizeVertical * 50,
+                      width: Responsive.blockSizeHorizontal * 500,
+                      child: OutlinedButton(
+                          style: ButtonStyle(backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                                  (states) {
+                            if (states.contains(MaterialState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return LocalThemeData.primaryColor;
+                          })),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+
+                              _addMemberRequest();
+                            }
+                          },
+                          child:
+                              Text("Submit", style: LocalThemeData.labelTextW)),
+                    )
+                  ],
+                )),
+          )
+        ],
+      ),
     ));
   }
 

@@ -1,6 +1,6 @@
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
-import 'package:balasamajam/screens/login/login.dart';
+import 'package:balasamajam/screens/login/login_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
         const Duration(seconds: 5),
         () => {
               Navigator.pushNamedAndRemoveUntil(
-                  context, LoginScreen.routeName, (route) => false)
+                  context, LoginPage.routeName, (route) => false)
             });
 
     return Scaffold(

@@ -45,84 +45,88 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Template(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-            size: Responsive.blockSizeVertical * 300,
-            Icons.currency_rupee_sharp),
-        Expanded(
-          child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child:
-                          Text("Add Payment", style: LocalThemeData.subTitle)),
-                  const Divider(thickness: 2),
-                  DropdownButtonFormField(
-                    onSaved: (newValue) {
-                      memberId = newValue;
-                    },
-                    decoration: InputDecoration(
-                        hintText: "Select Member",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
-                    items: membersDropList,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: Responsive.blockSizeVertical * 10),
-                  TextFormField(
-                    onSaved: (newValue) {
-                      paymentAmount = double.parse(newValue!);
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "Amount"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Amount cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: Responsive.blockSizeVertical * 10),
-                  TextFormField(
-                      minLines: 1,
-                      maxLines: 5,
-                      maxLength: 100,
+    return Scaffold(
+        body: SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+              size: Responsive.blockSizeVertical * 300,
+              Icons.currency_rupee_sharp),
+          Expanded(
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text("Add Payment",
+                            style: LocalThemeData.subTitle)),
+                    const Divider(thickness: 2),
+                    DropdownButtonFormField(
                       onSaved: (newValue) {
-                        comments = newValue;
+                        memberId = newValue;
+                      },
+                      decoration: InputDecoration(
+                          hintText: "Select Member",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                      items: membersDropList,
+                      onChanged: (value) {},
+                    ),
+                    SizedBox(height: Responsive.blockSizeVertical * 10),
+                    TextFormField(
+                      onSaved: (newValue) {
+                        paymentAmount = double.parse(newValue!);
                       },
                       decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: "Comments")),
-                  SizedBox(
-                    height: Responsive.blockSizeVertical * 50,
-                    width: Responsive.blockSizeHorizontal * 500,
-                    child: OutlinedButton(
-                        style: ButtonStyle(backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>((states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return LocalThemeData.primaryColor;
-                        })),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-
-                            _addPaymentRequest();
-                          }
+                          border: OutlineInputBorder(), hintText: "Amount"),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Amount cannot be empty";
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: Responsive.blockSizeVertical * 10),
+                    TextFormField(
+                        minLines: 1,
+                        maxLines: 5,
+                        maxLength: 100,
+                        onSaved: (newValue) {
+                          comments = newValue;
                         },
-                        child:
-                            Text("Submit", style: LocalThemeData.labelTextW)),
-                  )
-                ],
-              )),
-        )
-      ],
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: "Comments")),
+                    SizedBox(
+                      height: Responsive.blockSizeVertical * 50,
+                      width: Responsive.blockSizeHorizontal * 500,
+                      child: OutlinedButton(
+                          style: ButtonStyle(backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                                  (states) {
+                            if (states.contains(MaterialState.disabled)) {
+                              return Colors.grey;
+                            }
+                            return LocalThemeData.primaryColor;
+                          })),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+
+                              _addPaymentRequest();
+                            }
+                          },
+                          child:
+                              Text("Submit", style: LocalThemeData.labelTextW)),
+                    )
+                  ],
+                )),
+          )
+        ],
+      ),
     ));
   }
 

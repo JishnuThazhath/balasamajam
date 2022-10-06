@@ -2,7 +2,7 @@ import 'package:balasamajam/components/hero_dialog_route.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/configs/shared_state.dart';
 import 'package:balasamajam/constants/api_constants.dart';
-import 'package:balasamajam/screens/login/login.dart';
+import 'package:balasamajam/screens/login/login_page.dart';
 import 'package:flutter/material.dart';
 
 const String USER_INFO = "user-info";
@@ -89,7 +89,7 @@ class _UserLoginInfoDetailedState extends State<UserLoginInfoDetailed> {
     await SharedState.removeState(LocalAppState.TOKEN.toString());
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => LoginPage()),
         ((route) => false));
   }
 }

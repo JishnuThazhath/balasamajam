@@ -1,5 +1,4 @@
 import 'package:balasamajam/configs/local_theme_data.dart';
-import 'package:balasamajam/configs/shared_state.dart';
 import 'package:balasamajam/routes.dart';
 import 'package:balasamajam/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +18,7 @@ class Home extends StatelessWidget {
       initialRoute: SplashScreen.routeName,
       routes: routes,
       theme: ThemeData(
+        //useMaterial3: true,
         primaryColor: LocalThemeData.primaryColor,
         scaffoldBackgroundColor: LocalThemeData.backgroundColor,
         fontFamily: "Trueno",

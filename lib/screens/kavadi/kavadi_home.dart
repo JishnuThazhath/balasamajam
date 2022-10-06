@@ -1,4 +1,3 @@
-import 'package:balasamajam/components/template.dart';
 import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:flutter/material.dart';
@@ -10,32 +9,30 @@ class KavadiHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Template(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: Responsive.blockSizeHorizontal * 800,
-              height: Responsive.blockSizeVertical * 100,
-              child: ElevatedButton(
-                  onPressed: () => _pirivu_details(context),
-                  style: LocalThemeData.buttonPrimartColor,
-                  child: Text("Pirivu Vivarangal",
-                      style: LocalThemeData.buttonText)),
-            ),
-            SizedBox(height: Responsive.blockSizeVertical * 30),
-            SizedBox(
-              width: Responsive.blockSizeHorizontal * 800,
-              height: Responsive.blockSizeVertical * 100,
-              child: ElevatedButton(
-                  onPressed: () => _personal_enquiry(context),
-                  style: LocalThemeData.buttonPrimartColor,
-                  child: Text("Personal Enquiry",
-                      style: LocalThemeData.buttonText)),
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: Responsive.blockSizeHorizontal * 800,
+            height: Responsive.blockSizeVertical * 100,
+            child: ElevatedButton(
+                onPressed: () => _pirivu_details(context),
+                style: LocalThemeData.buttonPrimartColor,
+                child: Text("Pirivu Vivarangal",
+                    style: LocalThemeData.buttonText)),
+          ),
+          SizedBox(height: Responsive.blockSizeVertical * 30),
+          SizedBox(
+            width: Responsive.blockSizeHorizontal * 800,
+            height: Responsive.blockSizeVertical * 100,
+            child: ElevatedButton(
+                onPressed: () => _personal_enquiry(context),
+                style: LocalThemeData.buttonPrimartColor,
+                child:
+                    Text("Personal Enquiry", style: LocalThemeData.buttonText)),
+          ),
+        ],
       ),
     );
   }
