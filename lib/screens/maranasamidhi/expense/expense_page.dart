@@ -6,7 +6,7 @@ import 'package:balasamajam/network/api_enums.dart';
 import 'package:balasamajam/network/api_helper.dart';
 import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
-import 'package:balasamajam/screens/maranasamidhi/expense/add/add_expense.dart';
+import 'package:balasamajam/screens/maranasamidhi/expense/add/add_expense_page.dart';
 import 'package:balasamajam/screens/maranasamidhi/expense/data_card.dart';
 import 'package:balasamajam/screens/maranasamidhi/expense/expense_type.dart';
 import 'package:balasamajam/screens/maranasamidhi/expense/models/fetch_expense_request_model.dart';
@@ -126,7 +126,7 @@ class _ExpensePageState extends State<ExpensePage> {
 
     if (datePicker != null) {
       formattedDate = DateFormat("dd/MM/yyyy").format(datePicker);
-      //_fetchExpenses(formattedDate);
+      _fetchExpenses();
     }
     return formattedDate;
   }
@@ -182,7 +182,7 @@ class _ExpensePageState extends State<ExpensePage> {
   }
 
   void _addPayment() {
-    Navigator.pushNamed(context, AddExpense.routeName);
+    Navigator.pushNamed(context, AddExpensePage.routeName);
   }
 
   List<DropdownMenuItem<ExpenseType>> _getExpenseTypes() {

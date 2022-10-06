@@ -17,16 +17,16 @@ import 'package:balasamajam/utils/on_screen_message_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AddExpense extends StatefulWidget {
-  const AddExpense({super.key});
+class AddExpensePage extends StatefulWidget {
+  const AddExpensePage({super.key});
 
   static const String routeName = "AddExpense";
 
   @override
-  State<AddExpense> createState() => _AddExpenseState();
+  State<AddExpensePage> createState() => _AddExpensePageState();
 }
 
-class _AddExpenseState extends State<AddExpense> {
+class _AddExpensePageState extends State<AddExpensePage> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController dateController = TextEditingController();
@@ -93,7 +93,7 @@ class _AddExpenseState extends State<AddExpense> {
                     description = newValue!;
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       hintText: selectedExpenseType == ExpenseType.MARANAM
                           ? "Name"
                           : "Description of the Expense"),
@@ -105,17 +105,18 @@ class _AddExpenseState extends State<AddExpense> {
                   },
                 ),
                 SizedBox(height: Responsive.blockSizeVertical * 10),
-                DropdownButtonFormField(
-                  onSaved: (newValue) {
-                    memberId = newValue;
-                  },
-                  decoration: InputDecoration(
-                      hintText: "Select Member",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0))),
-                  items: membersDropList,
-                  onChanged: (value) {},
-                ),
+                if (selectedExpenseType == ExpenseType.MARANAM)
+                  DropdownButtonFormField(
+                    onSaved: (newValue) {
+                      memberId = newValue;
+                    },
+                    decoration: InputDecoration(
+                        hintText: "Relative Of",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0))),
+                    items: membersDropList,
+                    onChanged: (value) {},
+                  ),
                 SizedBox(height: Responsive.blockSizeVertical * 10),
                 TextFormField(
                   onSaved: (newValue) {
@@ -131,25 +132,34 @@ class _AddExpenseState extends State<AddExpense> {
                   },
                 ),
                 SizedBox(height: Responsive.blockSizeVertical * 10),
-                Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () async {
-                          String dateString = await _showDatePicker();
-                          setState(() {
-                            dateController.text = dateString;
-                          });
-                        },
-                        child: const Icon(
+                GestureDetector(
+                  onTap: () async {
+                    String dateString = await _showDatePicker();
+                    setState(() {
+                      dateController.text = dateString;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Responsive.blockSizeHorizontal * 20,
+                        vertical: Responsive.blockSizeVertical * 20),
+                    height: Responsive.blockSizeHorizontal * 150,
+                    width: Responsive.blockSizeHorizontal * 900,
+                    color: Colors.grey[300],
+                    child: Row(
+                      children: [
+                        const Icon(
                           Icons.calendar_month_outlined,
                           semanticLabel: "Select Date of expense",
-                        )),
-                    SizedBox(width: Responsive.blockSizeHorizontal * 5),
-                    Text(
-                      dateController.text,
-                      style: LocalThemeData.labelTextB,
-                    )
-                  ],
+                        ),
+                        SizedBox(width: Responsive.blockSizeHorizontal * 5),
+                        Text(
+                          dateController.text,
+                          style: LocalThemeData.labelTextB,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(height: Responsive.blockSizeVertical * 10),
                 TextFormField(
@@ -176,7 +186,7 @@ class _AddExpenseState extends State<AddExpense> {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
 
-                          _addPaymentRequest();
+                          _addExpenseRequest();
                         }
                       },
                       child: Text("Submit", style: LocalThemeData.labelTextW)),
@@ -195,10 +205,10 @@ class _AddExpenseState extends State<AddExpense> {
     return id;
   }
 
-  void _addPaymentRequest() async {
+  void _addExpenseRequest() async {
     AddExpenseRequestModel addExpenseRequestModel = AddExpenseRequestModel(
         description!,
-        memberId!,
+        memberId,
         amount!,
         dateController.text,
         notes!,

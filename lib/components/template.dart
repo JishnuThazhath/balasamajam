@@ -12,17 +12,23 @@ class Template extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: Responsive.blockSizeHorizontal * 40),
-          child: Column(
-            children: [
-              const UserLoginInfo(),
-              Divider(thickness: 2, height: Responsive.blockSizeVertical * 30),
-              // SizedBox(height: Responsive.blockSizeVertical * 30),
-              Expanded(child: child)
-            ],
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Responsive.blockSizeHorizontal * 40),
+            child: Column(
+              children: [
+                const UserLoginInfo(),
+                Divider(
+                    thickness: 2, height: Responsive.blockSizeVertical * 30),
+                // SizedBox(height: Responsive.blockSizeVertical * 30),
+                Expanded(child: child)
+              ],
+            ),
           ),
         ),
       ),

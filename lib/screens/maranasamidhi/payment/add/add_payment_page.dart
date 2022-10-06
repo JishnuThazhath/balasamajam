@@ -166,13 +166,7 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
     if (responseBaseModel != null && responseBaseModel.status == "OK") {
       OnScreenMessageUtil.showSnackBarBottom(
           responseBaseModel.message, context, OnScreenMessageUtil.GREEN);
-    } else {
-      OnScreenMessageUtil.showSnackBarBottom(
-          responseBaseModel == null
-              ? "Something went wrong"
-              : responseBaseModel.message,
-          context,
-          OnScreenMessageUtil.GREEN);
+      _formKey.currentState!.reset();
     }
   }
 
@@ -186,7 +180,8 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
   }
 
   _apiOnFailureCallBackWithMessage(APIResponseErrorType p1, String p2) {
-    print("Error while adding payment ${p2}");
+    OnScreenMessageUtil.showSnackBarBottom(
+        p2, context, OnScreenMessageUtil.RED);
     return null;
   }
 }

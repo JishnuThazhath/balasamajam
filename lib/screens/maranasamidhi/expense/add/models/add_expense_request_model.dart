@@ -7,7 +7,7 @@ part 'add_expense_request_model.g.dart';
 class AddExpenseRequestModel {
   final String description;
 
-  final String memberId;
+  final String? memberId;
 
   final double amount;
 
