@@ -25,36 +25,40 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MenuCard(
-                  name: "Home",
-                  isSelected: selectedMenuOption == "Home",
-                  onClickCallBack: _menuSelect,
-                ),
-                SizedBox(width: Responsive.blockSizeHorizontal * 10),
-                MenuCard(
-                    name: "Payment",
-                    isSelected: selectedMenuOption == "Payment",
-                    onClickCallBack: _menuSelect),
-                SizedBox(width: Responsive.blockSizeHorizontal * 10),
-                MenuCard(
-                    name: "Expense",
-                    isSelected: selectedMenuOption == "Expense",
-                    onClickCallBack: _menuSelect),
-                SizedBox(width: Responsive.blockSizeHorizontal * 10),
-                MenuCard(
-                    name: "Member",
-                    isSelected: selectedMenuOption == "Member",
-                    onClickCallBack: _menuSelect),
-                SizedBox(width: Responsive.blockSizeHorizontal * 10),
-                MenuCard(
-                    name: "Collection",
-                    isSelected: selectedMenuOption == "Collection",
-                    onClickCallBack: _menuSelect),
-              ]),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Responsive.blockSizeHorizontal * 10),
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MenuCard(
+                    name: "Home",
+                    isSelected: selectedMenuOption == "Home",
+                    onClickCallBack: _menuSelect,
+                  ),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Payment",
+                      isSelected: selectedMenuOption == "Payment",
+                      onClickCallBack: _menuSelect),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Expense",
+                      isSelected: selectedMenuOption == "Expense",
+                      onClickCallBack: _menuSelect),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Member",
+                      isSelected: selectedMenuOption == "Member",
+                      onClickCallBack: _menuSelect),
+                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  MenuCard(
+                      name: "Collection",
+                      isSelected: selectedMenuOption == "Collection",
+                      onClickCallBack: _menuSelect),
+                ]),
+          ),
         ),
         Container(
           child: currentWidgetLoaded,

@@ -33,18 +33,13 @@ class _TemplateState extends State<Template> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Responsive.blockSizeHorizontal * 40),
-            child: Column(
-              children: [
-                const UserLoginInfo(),
-                Divider(
-                    thickness: 2, height: Responsive.blockSizeVertical * 30),
-                // SizedBox(height: Responsive.blockSizeVertical * 30),
-                Expanded(child: selectedPage!)
-              ],
-            ),
+          child: Column(
+            children: [
+              const UserLoginInfo(),
+              Divider(thickness: 2, height: Responsive.blockSizeVertical * 30),
+              // SizedBox(height: Responsive.blockSizeVertical * 30),
+              Expanded(child: selectedPage!)
+            ],
           ),
         ),
       ),
@@ -62,9 +57,6 @@ class _TemplateState extends State<Template> {
   }
 
   _bottomNavigationBarClickEvent(int idx, BuildContext context) {
-    //todo : if the screen already the selected screen then do nothing. this will avoid the exra animation.
-    // String routeName = HomeScreen.routeName;
-    print("here ${idx}");
     switch (idx) {
       case 0:
         {
@@ -84,13 +76,11 @@ class _TemplateState extends State<Template> {
       case 2:
         {
           setState(() {
-            selectedPage = MaranasamidhiHome();
+            selectedPage = const MaranasamidhiHome();
           });
         }
         break;
     }
-
-    // Navigator.pushNamed(context, routeName);
   }
 
   _changePageState(Widget page) {

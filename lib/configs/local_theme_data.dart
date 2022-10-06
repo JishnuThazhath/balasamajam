@@ -32,7 +32,7 @@ class LocalThemeData {
   static TextStyle labelTextB = TextStyle(
       color: Colors.black,
       fontFamily: 'Trueno',
-      fontSize: Responsive.blockSizeVertical * 16,
+      fontSize: Responsive.blockSizeVertical * 20,
       fontWeight: FontWeight.bold);
 
   static TextStyle stypePrimaryText = TextStyle(

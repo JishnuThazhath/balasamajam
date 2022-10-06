@@ -17,28 +17,31 @@ class UserLoginInfo extends StatefulWidget {
 class _UserLoginInfoState extends State<UserLoginInfo> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text("Nadumuri Balasamajam", style: LocalThemeData.subTitle),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: const BorderRadius.all(Radius.circular(50))),
-          child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        HeroDialogRoute(
-                            builder: (context) =>
-                                const UserLoginInfoDetailed()));
-                  },
-                  child:
-                      const Hero(tag: USER_INFO, child: Icon(Icons.person)))),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Nadumuri Balasamajam", style: LocalThemeData.subTitle),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: const BorderRadius.all(Radius.circular(50))),
+            child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          HeroDialogRoute(
+                              builder: (context) =>
+                                  const UserLoginInfoDetailed()));
+                    },
+                    child:
+                        const Hero(tag: USER_INFO, child: Icon(Icons.person)))),
+          ),
+        ],
+      ),
     );
   }
 }
