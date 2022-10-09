@@ -19,6 +19,7 @@ class MaranasamidhiHome extends StatefulWidget {
 class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
   Widget currentWidgetLoaded = const LandingPage();
   String selectedMenuOption = "Home";
+  double spaceBetweenMenus = 15.0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,22 +38,30 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
                     isSelected: selectedMenuOption == "Home",
                     onClickCallBack: _menuSelect,
                   ),
-                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  SizedBox(
+                      width:
+                          Responsive.blockSizeHorizontal * spaceBetweenMenus),
                   MenuCard(
                       name: "Payment",
                       isSelected: selectedMenuOption == "Payment",
                       onClickCallBack: _menuSelect),
-                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  SizedBox(
+                      width:
+                          Responsive.blockSizeHorizontal * spaceBetweenMenus),
                   MenuCard(
                       name: "Expense",
                       isSelected: selectedMenuOption == "Expense",
                       onClickCallBack: _menuSelect),
-                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  SizedBox(
+                      width:
+                          Responsive.blockSizeHorizontal * spaceBetweenMenus),
                   MenuCard(
                       name: "Member",
                       isSelected: selectedMenuOption == "Member",
                       onClickCallBack: _menuSelect),
-                  SizedBox(width: Responsive.blockSizeHorizontal * 10),
+                  SizedBox(
+                      width:
+                          Responsive.blockSizeHorizontal * spaceBetweenMenus),
                   MenuCard(
                       name: "Collection",
                       isSelected: selectedMenuOption == "Collection",
@@ -78,19 +87,27 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
           break;
         case "Payment":
           currentWidgetLoaded = const PaymentPage();
-          selectedMenuOption = "Payment";
+          setState(() {
+            selectedMenuOption = "Payment";
+          });
           break;
         case "Expense":
           currentWidgetLoaded = const ExpensePage();
-          selectedMenuOption = "Expense";
+          setState(() {
+            selectedMenuOption = "Expense";
+          });
           break;
         case "Member":
           currentWidgetLoaded = const MemberPage();
-          selectedMenuOption = "Member";
+          setState(() {
+            selectedMenuOption = "Member";
+          });
           break;
         case "Collection":
           currentWidgetLoaded = const CollectionPage();
-          selectedMenuOption = "Collection";
+          setState(() {
+            selectedMenuOption = "Collection";
+          });
           break;
         default:
       }

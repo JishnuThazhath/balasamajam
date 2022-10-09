@@ -7,6 +7,7 @@ import 'package:balasamajam/network/api_enums.dart';
 import 'package:balasamajam/network/api_helper.dart';
 import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/responsive.dart';
+import 'package:balasamajam/components/full_page_header.dart';
 import 'package:balasamajam/screens/maranasamidhi/payment/add/models/add_payment_request_model.dart';
 import 'package:balasamajam/screens/maranasamidhi/payment/add/models/add_payment_response_model.dart';
 import 'package:balasamajam/utils/common_api_helper.dart';
@@ -45,90 +46,100 @@ class _AddPaymentPageState extends State<AddPaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        Container(
-            padding: EdgeInsets.only(top: Responsive.blockSizeVertical * 60),
-            color: Colors.green[700],
-            child: Image.asset("images/money.png")),
-        SizedBox(height: Responsive.blockSizeVertical * 20),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: Responsive.blockSizeHorizontal * 20),
-          child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text("Add Payment.",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 40.0,
-                              fontWeight: FontWeight.bold))),
-                  const Divider(thickness: 2),
-                  DropdownButtonFormField(
-                    onSaved: (newValue) {
-                      memberId = newValue;
-                    },
-                    decoration: InputDecoration(
-                        hintText: "Select Member",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
-                    items: membersDropList,
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: Responsive.blockSizeVertical * 10),
-                  TextFormField(
-                    onSaved: (newValue) {
-                      paymentAmount = double.parse(newValue!);
-                    },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), hintText: "Amount"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Amount cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: Responsive.blockSizeVertical * 10),
-                  TextFormField(
-                      minLines: 1,
-                      maxLines: 5,
-                      maxLength: 100,
-                      onSaved: (newValue) {
-                        comments = newValue;
-                      },
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(), hintText: "Comments")),
-                  SizedBox(
-                    height: Responsive.blockSizeVertical * 70,
-                    width: Responsive.blockSizeHorizontal * 500,
-                    child: OutlinedButton(
-                        style: ButtonStyle(backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>((states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return LocalThemeData.primaryColor;
-                        })),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
+        backgroundColor: Colors.grey[300],
+        body: SafeArea(
+          child: Column(
+            children: [
+              FullPageHeader(showBackButton: true),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50))),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Responsive.blockSizeHorizontal * 50,
+                      vertical: Responsive.blockSizeVertical * 50),
+                  child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text("Add Payment.",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold))),
+                          const Divider(thickness: 2),
+                          DropdownButtonFormField(
+                            onSaved: (newValue) {
+                              memberId = newValue;
+                            },
+                            decoration: InputDecoration(
+                                hintText: "Select Member",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0))),
+                            items: membersDropList,
+                            onChanged: (value) {},
+                          ),
+                          SizedBox(height: Responsive.blockSizeVertical * 10),
+                          TextFormField(
+                            onSaved: (newValue) {
+                              paymentAmount = double.parse(newValue!);
+                            },
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Amount"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Amount cannot be empty";
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: Responsive.blockSizeVertical * 10),
+                          TextFormField(
+                              minLines: 1,
+                              maxLines: 10,
+                              maxLength: 100,
+                              onSaved: (newValue) {
+                                comments = newValue;
+                              },
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Comments")),
+                          SizedBox(
+                            height: Responsive.blockSizeVertical * 70,
+                            width: Responsive.blockSizeHorizontal * 500,
+                            child: OutlinedButton(
+                                style: ButtonStyle(backgroundColor:
+                                    MaterialStateProperty.resolveWith<Color>(
+                                        (states) {
+                                  if (states.contains(MaterialState.disabled)) {
+                                    return Colors.grey;
+                                  }
+                                  return LocalThemeData.primaryColor;
+                                })),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
 
-                            _addPaymentRequest();
-                          }
-                        },
-                        child:
-                            Text("Submit", style: LocalThemeData.labelTextW)),
-                  )
-                ],
-              )),
-        )
-      ],
-    ));
+                                    _addPaymentRequest();
+                                  }
+                                },
+                                child: Text("Submit",
+                                    style: LocalThemeData.labelTextW)),
+                          )
+                        ],
+                      )),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
   String? _getAdminIdFromState() {

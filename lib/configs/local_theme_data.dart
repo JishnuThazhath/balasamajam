@@ -43,7 +43,7 @@ class LocalThemeData {
 
   static const primaryColor = Colors.blueAccent;
   static Color? backgroundColor =
-      Colors.grey[50]; //Color.fromARGB(222, 248, 247, 245);
+      Colors.grey[100]; //Color.fromARGB(222, 248, 247, 245);
 
   static ButtonStyle buttonPrimartColor =
       ElevatedButton.styleFrom(backgroundColor: primaryColor);

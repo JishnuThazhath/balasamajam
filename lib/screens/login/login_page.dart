@@ -53,18 +53,22 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: Responsive.blockSizeHorizontal * 30,
+              horizontal: Responsive.blockSizeHorizontal * 70,
               vertical: Responsive.blockSizeVertical * 30),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(child: Image.asset("images/logo.png")),
+              Image.asset("images/chineese_lan.png", scale: 2),
               SizedBox(height: Responsive.blockSizeVertical * 50),
-              const Text("Login.",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold)),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Login.",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold)),
+              ),
               SizedBox(height: Responsive.blockSizeVertical * 10),
               Form(
                   key: _formKey,
@@ -74,10 +78,11 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (newValue) {
                           username = newValue;
                         },
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
                             hintText: "Username",
-                            prefixIcon: Icon(Icons.lock_outline_sharp)),
+                            prefixIcon: const Icon(Icons.lock_outline_sharp)),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Username cannot be empty";
@@ -91,10 +96,11 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (newValue) {
                           password = newValue;
                         },
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
                             hintText: "Password",
-                            prefixIcon: Icon(Icons.lock_outline_sharp)),
+                            prefixIcon: const Icon(Icons.lock_outline_sharp)),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Password cannot be empty";

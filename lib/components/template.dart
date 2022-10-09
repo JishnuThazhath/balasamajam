@@ -3,6 +3,7 @@ import 'package:balasamajam/responsive.dart';
 import 'package:balasamajam/screens/home/home_screen.dart';
 import 'package:balasamajam/screens/kavadi/kavadi_home.dart';
 import 'package:balasamajam/screens/maranasamidhi/maranasamidhi_home.dart';
+import 'package:balasamajam/user/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class Template extends StatefulWidget {
@@ -15,7 +16,8 @@ class Template extends StatefulWidget {
 
 class _TemplateState extends State<Template> {
   Widget? selectedPage;
-
+  String selected = "Home";
+  int _selectedIndex = 0;
   @override
   void initState() {
     selectedPage = HomeScreen(
@@ -44,13 +46,16 @@ class _TemplateState extends State<Template> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        elevation: 10,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.festival), label: "Kavadi"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.work), label: "Maranasamidhi")
+          // BottomNavigationBarItem(icon: Icon(Icons.festival), label: "Kavadi"),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.work), label: "Maranasamidhi"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
         ],
-        backgroundColor: Colors.white,
         onTap: (value) => {_bottomNavigationBarClickEvent(value, context)},
       ),
     );
@@ -63,20 +68,31 @@ class _TemplateState extends State<Template> {
           setState(() {
             selectedPage =
                 HomeScreen(key: UniqueKey(), changePageState: _changePageState);
+            _selectedIndex = 0;
           });
         }
         break;
+      // case 1:
+      //   {
+      //     setState(() {
+      //       selectedPage = const KavadiHome();
+      //       _selectedIndex = 1;
+      //     });
+      //   }
+      //   break;
+      // case 2:
+      //   {
+      //     setState(() {
+      //       selectedPage = const MaranasamidhiHome();
+      //       _selectedIndex = 2;
+      //     });
+      //   }
+      //   break;
       case 1:
         {
           setState(() {
-            selectedPage = const KavadiHome();
-          });
-        }
-        break;
-      case 2:
-        {
-          setState(() {
-            selectedPage = const MaranasamidhiHome();
+            selectedPage = const SettingsPage();
+            _selectedIndex = 1;
           });
         }
         break;
