@@ -4,7 +4,7 @@ part 'fetch_member_request_model.g.dart';
 
 @JsonSerializable()
 class FetchMemberRequestModel {
-  final String searchText;
+  final String? searchText;
 
   FetchMemberRequestModel(this.searchText);
 

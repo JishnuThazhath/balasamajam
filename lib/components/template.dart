@@ -39,7 +39,6 @@ class _TemplateState extends State<Template> {
             children: [
               const UserLoginInfo(),
               Divider(thickness: 2, height: Responsive.blockSizeVertical * 30),
-              // SizedBox(height: Responsive.blockSizeVertical * 30),
               Expanded(child: selectedPage!)
             ],
           ),
@@ -51,9 +50,9 @@ class _TemplateState extends State<Template> {
         elevation: 10,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          // BottomNavigationBarItem(icon: Icon(Icons.festival), label: "Kavadi"),
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.work), label: "Maranasamidhi"),
+          BottomNavigationBarItem(icon: Icon(Icons.festival), label: "Kavadi"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.work), label: "Maranasamidhi"),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
         ],
         onTap: (value) => {_bottomNavigationBarClickEvent(value, context)},
@@ -72,23 +71,23 @@ class _TemplateState extends State<Template> {
           });
         }
         break;
-      // case 1:
-      //   {
-      //     setState(() {
-      //       selectedPage = const KavadiHome();
-      //       _selectedIndex = 1;
-      //     });
-      //   }
-      //   break;
-      // case 2:
-      //   {
-      //     setState(() {
-      //       selectedPage = const MaranasamidhiHome();
-      //       _selectedIndex = 2;
-      //     });
-      //   }
-      //   break;
       case 1:
+        {
+          setState(() {
+            selectedPage = const KavadiHome();
+            _selectedIndex = 1;
+          });
+        }
+        break;
+      case 2:
+        {
+          setState(() {
+            selectedPage = const MaranasamidhiHome();
+            _selectedIndex = 2;
+          });
+        }
+        break;
+      case 3:
         {
           setState(() {
             selectedPage = const SettingsPage();

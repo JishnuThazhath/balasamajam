@@ -32,7 +32,6 @@ class _ExpensePageState extends State<ExpensePage> {
     DateTime now = DateTime.now();
     String formattedNow = DateFormat("dd/MM/yyyy").format(now);
     dateController.text = formattedNow;
-    //_fetchExpenses(formattedNow);
     _fetchExpenses();
     super.initState();
   }
@@ -41,7 +40,8 @@ class _ExpensePageState extends State<ExpensePage> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(
+            horizontal: Responsive.blockSizeHorizontal * 20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Align(
             alignment: Alignment.topRight,
@@ -61,7 +61,6 @@ class _ExpensePageState extends State<ExpensePage> {
               borderRadius: BorderRadius.circular(5.0),
               items: _getExpenseTypes(),
               onChanged: (ExpenseType? value) {
-                print("value changed ${value}");
                 setState(() {
                   selectedValue = value!;
                 });
@@ -106,7 +105,7 @@ class _ExpensePageState extends State<ExpensePage> {
                                 callBack: _callBack);
                           },
                           separatorBuilder: (context, index) => SizedBox(
-                              height: Responsive.blockSizeVertical * 10),
+                              height: Responsive.blockSizeVertical * 20),
                           itemCount: expenses.length),
                     )
                   : const Center(child: Text("No Data to display...")))

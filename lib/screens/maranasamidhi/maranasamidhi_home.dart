@@ -28,7 +28,7 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
           scrollDirection: Axis.horizontal,
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: Responsive.blockSizeHorizontal * 10),
+                horizontal: Responsive.blockSizeHorizontal * 25),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

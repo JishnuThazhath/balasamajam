@@ -34,6 +34,7 @@ class _MemberPageState extends State<MemberPage> {
     DateTime now = DateTime.now();
     String formattedNow = DateFormat("dd/MM/yyyy").format(now);
     dateController.text = formattedNow;
+    _fetchMembers();
     super.initState();
   }
 
@@ -170,7 +171,7 @@ class _MemberPageState extends State<MemberPage> {
     print("Selected Date is : " + formattedDate);
 
     FetchMemberRequestModel fetchMemberRequestModel =
-        FetchMemberRequestModel(searchText!);
+        FetchMemberRequestModel(searchText);
 
     final token =
         await SharedState.getSharedState(LocalAppState.TOKEN.toString());

@@ -1,4 +1,3 @@
-import 'package:balasamajam/configs/local_theme_data.dart';
 import 'package:balasamajam/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -23,26 +22,98 @@ class DataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle titleText = const TextStyle(
+        color: Colors.white,
+        fontFamily: 'Trueno',
+        fontSize: 20,
+        fontWeight: FontWeight.w500);
+
+    TextStyle subText = const TextStyle(
+        color: Colors.white,
+        fontFamily: 'Trueno',
+        fontSize: 15,
+        fontWeight: FontWeight.w500);
+
     return GestureDetector(
       onTap: () => callBack(),
       child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: const BorderRadius.all(Radius.circular(15))),
           padding: EdgeInsets.symmetric(
-              horizontal: Responsive.blockSizeHorizontal * 10,
-              vertical: Responsive.blockSizeVertical * 10),
+              vertical: Responsive.blockSizeVertical * 15,
+              horizontal: Responsive.blockSizeHorizontal * 30),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 5,
+                  offset: const Offset(0, 2))
+            ],
+          ),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text(expenseType), Text(amount)]),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text(description), Text(date)]),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [Text(addedBy)])
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: Responsive.blockSizeVertical * 2,
+                      horizontal: Responsive.blockSizeHorizontal * 5),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 2))
+                    ],
+                  ),
+                  child: Text(expenseType)),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.currency_rupee_sharp,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    amount,
+                    style: titleText,
+                  ),
+                ],
+              ),
+            ]),
+            SizedBox(height: Responsive.blockSizeVertical * 5),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(
+                description,
+                style: titleText,
+              ),
+              Text(
+                date,
+                style: subText,
+              )
+            ]),
+            SizedBox(height: Responsive.blockSizeVertical * 15),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "ENTERED BY",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                  ),
+                ),
+                Text(
+                  addedBy,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            )
           ])),
     );
   }
