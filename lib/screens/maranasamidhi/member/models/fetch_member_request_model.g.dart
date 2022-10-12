@@ -9,7 +9,7 @@ part of 'fetch_member_request_model.dart';
 FetchMemberRequestModel _$FetchMemberRequestModelFromJson(
         Map<String, dynamic> json) =>
     FetchMemberRequestModel(
-      json['searchText'] as String,
+      json['searchText'] as String?,
     );
 
 Map<String, dynamic> _$FetchMemberRequestModelToJson(

@@ -167,9 +167,11 @@ class _ExpensePageState extends State<ExpensePage> {
   _apiCallback(json) {
     if (json['data'] != null) {
       var data = json['data'] as List;
-      List<FetchExpenseResponseModel> model =
-          data.map((e) => FetchExpenseResponseModel.fromJson(e)).toList();
-      return model;
+      if (data.isNotEmpty) {
+        List<FetchExpenseResponseModel> model =
+            data.map((e) => FetchExpenseResponseModel.fromJson(e)).toList();
+        return model;
+      }
     }
     return null;
   }

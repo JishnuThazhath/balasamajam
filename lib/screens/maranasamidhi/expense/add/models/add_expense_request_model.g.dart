@@ -10,7 +10,7 @@ AddExpenseRequestModel _$AddExpenseRequestModelFromJson(
         Map<String, dynamic> json) =>
     AddExpenseRequestModel(
       json['description'] as String,
-      json['memberId'] as String,
+      json['memberId'] as String?,
       (json['amount'] as num).toDouble(),
       json['dateOfDeath'] as String,
       json['notes'] as String,
