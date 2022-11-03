@@ -9,8 +9,6 @@ part of 'fetch_payment_response_model.dart';
 FetchPaymentResponseModel _$FetchPaymentResponseModelFromJson(
         Map<String, dynamic> json) =>
     FetchPaymentResponseModel(
-      json['startDate'] as String,
-      json['endDate'] as String,
       json['memberFullName'] as String,
       json['collectedByFullName'] as String,
       (json['amount'] as num).toDouble(),
@@ -20,8 +18,6 @@ FetchPaymentResponseModel _$FetchPaymentResponseModelFromJson(
 Map<String, dynamic> _$FetchPaymentResponseModelToJson(
         FetchPaymentResponseModel instance) =>
     <String, dynamic>{
-      'startDate': instance.startDate,
-      'endDate': instance.endDate,
       'memberFullName': instance.memberFullName,
       'collectedByFullName': instance.collectedByFullName,
       'amount': instance.amount,

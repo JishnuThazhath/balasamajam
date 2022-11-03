@@ -59,13 +59,13 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
                       name: "Member",
                       isSelected: selectedMenuOption == "Member",
                       onClickCallBack: _menuSelect),
-                  SizedBox(
-                      width:
-                          Responsive.blockSizeHorizontal * spaceBetweenMenus),
-                  MenuCard(
-                      name: "Collection",
-                      isSelected: selectedMenuOption == "Collection",
-                      onClickCallBack: _menuSelect),
+                  // SizedBox(
+                  //     width:
+                  //         Responsive.blockSizeHorizontal * spaceBetweenMenus),
+                  // MenuCard(
+                  //     name: "Collection",
+                  //     isSelected: selectedMenuOption == "Collection",
+                  //     onClickCallBack: _menuSelect),
                 ]),
           ),
         ),
@@ -103,12 +103,12 @@ class _MaranasamidhiHomeState extends State<MaranasamidhiHome> {
             selectedMenuOption = "Member";
           });
           break;
-        case "Collection":
-          currentWidgetLoaded = const CollectionPage();
-          setState(() {
-            selectedMenuOption = "Collection";
-          });
-          break;
+        // case "Collection":
+        //   currentWidgetLoaded = const CollectionPage();
+        //   setState(() {
+        //     selectedMenuOption = "Collection";
+        //   });
+        //   break;
         default:
       }
     });

@@ -14,6 +14,8 @@ class APIConstants {
   static const String addExpense = "$apiEndpoint/addExpense";
 
   static const String getAllMembers = "$apiEndpoint/getAllMembers";
+
+  static const String getAllAdmins = "$apiEndpoint/getAllAdmins";
 }
 
 enum LocalAppState { TOKEN, IS_LOGGED_IN, ADMIN_ID }

@@ -10,8 +10,8 @@ FetchPaymentRequestModel _$FetchPaymentRequestModelFromJson(
         Map<String, dynamic> json) =>
     FetchPaymentRequestModel(
       json['date'] as String,
-      json['memeberId'] as String,
-      json['collectedById'] as String,
+      json['memeberId'] as String?,
+      json['collectedById'] as String?,
     );
 
 Map<String, dynamic> _$FetchPaymentRequestModelToJson(

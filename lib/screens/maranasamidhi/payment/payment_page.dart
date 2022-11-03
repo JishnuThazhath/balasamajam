@@ -10,6 +10,11 @@ import 'package:balasamajam/screens/maranasamidhi/payment/add/add_payment_page.d
 import 'package:balasamajam/screens/maranasamidhi/payment/data_card.dart';
 import 'package:balasamajam/screens/maranasamidhi/payment/models/fetch_payment_request_model.dart';
 import 'package:balasamajam/screens/maranasamidhi/payment/models/fetch_payment_response_model.dart';
+import 'package:balasamajam/screens/maranasamidhi/payment/models/payments_model.dart';
+import 'package:balasamajam/utils/common_api_helper.dart';
+import 'package:balasamajam/utils/fetch_admins.dart';
+import 'package:balasamajam/utils/models/admin_response_model.dart';
+import 'package:balasamajam/utils/models/member_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -22,10 +27,21 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   TextEditingController dateController = TextEditingController();
-  List<FetchPaymentResponseModel> payments = <FetchPaymentResponseModel>[];
+
+  List<FetchPaymentResponseModel> payments = [];
+  PaymentsModel? paymentsModel;
+
+  final _formKey = GlobalKey<FormState>();
+  List<DropdownMenuItem<String>> membersDropList = [];
+  List<DropdownMenuItem<String>> adminDropDownList = [];
+
+  String? memberId;
+  String? adminId;
 
   @override
   void initState() {
+    _populateMembersDropList();
+    _populateAdminDropList();
     DateTime now = DateTime.now();
     String formattedNow = DateFormat("dd/MM/yyyy").format(now);
     dateController.text = formattedNow;
@@ -51,20 +67,15 @@ class _PaymentPageState extends State<PaymentPage> {
           SizedBox(height: Responsive.blockSizeVertical * 15),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text("Transactions", style: LocalThemeData.labelText),
-            Row(
-              children: [
-                GestureDetector(
-                    onTap: () async {
-                      await _showDatePicker();
-                    },
-                    child: const Icon(Icons.calendar_month_outlined)),
-                SizedBox(width: Responsive.blockSizeHorizontal * 5),
-                Text(
-                  dateController.text,
-                  style: LocalThemeData.labelTextB,
-                )
-              ],
-            ),
+            GestureDetector(
+              onTap: _showFilter,
+              child: Row(
+                children: const [
+                  Text("Filter"),
+                  Icon(Icons.arrow_downward_outlined)
+                ],
+              ),
+            )
           ]),
           const Divider(thickness: 2),
           Expanded(
@@ -87,7 +98,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           },
                           separatorBuilder: (context, index) => SizedBox(
                               height: Responsive.blockSizeVertical * 10),
-                          itemCount: payments.length),
+                          itemCount: paymentsModel!.payments.length),
                     )
                   : const Center(child: Text("No Data to display...")))
         ]),
@@ -106,7 +117,6 @@ class _PaymentPageState extends State<PaymentPage> {
 
     if (datePicker != null) {
       formattedDate = DateFormat("dd/MM/yyyy").format(datePicker);
-      _fetchPayments();
     }
     setState(() {
       dateController.text = formattedDate;
@@ -122,7 +132,7 @@ class _PaymentPageState extends State<PaymentPage> {
     });
 
     FetchPaymentRequestModel fetchPaymentRequestModel =
-        FetchPaymentRequestModel(dateController.text, "", "");
+        FetchPaymentRequestModel(dateController.text, memberId, adminId);
     final token =
         await SharedState.getSharedState(LocalAppState.TOKEN.toString());
 
@@ -135,25 +145,24 @@ class _PaymentPageState extends State<PaymentPage> {
         url: APIConstants.fetchPayment,
         body: json);
 
-    List<FetchPaymentResponseModel>? maranasamidhiEnquiryResponse =
-        APIHelper.filterResponse(
-            apiCallback: _apiCallback,
-            response: response,
-            apiOnFailureCallBackWithMessage: _apiOnFailureCallBackWithMessage);
+    PaymentsModel? maranasamidhiEnquiryResponse = APIHelper.filterResponse(
+        apiCallback: _apiCallback,
+        response: response,
+        apiOnFailureCallBackWithMessage: _apiOnFailureCallBackWithMessage);
 
     if (maranasamidhiEnquiryResponse != null &&
-        maranasamidhiEnquiryResponse.isNotEmpty) {
+        maranasamidhiEnquiryResponse.payments.isNotEmpty) {
       setState(() {
-        payments = maranasamidhiEnquiryResponse;
+        paymentsModel = maranasamidhiEnquiryResponse;
+        payments = maranasamidhiEnquiryResponse.payments;
       });
     }
   }
 
   _apiCallback(json) {
     if (json['data'] != null) {
-      var data = json['data'] as List;
-      List<FetchPaymentResponseModel> model =
-          data.map((e) => FetchPaymentResponseModel.fromJson(e)).toList();
+      var data = json['data'];
+      PaymentsModel model = PaymentsModel.fromJson(data);
       return model;
     }
     return null;
@@ -166,5 +175,125 @@ class _PaymentPageState extends State<PaymentPage> {
 
   void _addPayment() {
     Navigator.pushNamed(context, AddPaymentPage.routeName);
+  }
+
+  _populateMembersDropList() async {
+    List<MemberResponseModel> members = await CommonApiHelper.getAllMembers();
+    setState(() {
+      for (var element in members) {
+        membersDropList.add(DropdownMenuItem(
+            value: element.memberId, child: Text(element.memberFullName)));
+      }
+    });
+  }
+
+  _populateAdminDropList() async {
+    List<AdminResponseModel>? admins = await FetchAdmins.fetchAllAdmins();
+    setState(() {
+      if (admins == null) {
+        adminDropDownList = [];
+      } else {
+        for (var element in admins) {
+          adminDropDownList.add(DropdownMenuItem(
+              value: element.adminid, child: Text(element.adminFullName)));
+        }
+      }
+    });
+  }
+
+  _showFilter() {
+    showModalBottomSheet(
+        backgroundColor: Colors.white,
+        context: context,
+        isDismissible: true,
+        builder: (context) {
+          return SizedBox(
+            height: Responsive.blockSizeVertical * 400,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Center(
+                  child: Form(
+                      key: _formKey,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(children: [
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                      onTap: () async {
+                                        await _showDatePicker();
+                                      },
+                                      child: const Icon(
+                                          Icons.calendar_month_outlined)),
+                                  SizedBox(
+                                      width:
+                                          Responsive.blockSizeHorizontal * 5),
+                                  Text(
+                                    dateController.text,
+                                    style: LocalThemeData.labelTextB,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                  height: Responsive.blockSizeVertical * 10),
+                              DropdownButtonFormField(
+                                onSaved: (newValue) {
+                                  adminId = newValue;
+                                },
+                                decoration: InputDecoration(
+                                    hintText: "Admin",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0))),
+                                items: adminDropDownList,
+                                onChanged: (value) {},
+                              ),
+                              SizedBox(
+                                  height: Responsive.blockSizeVertical * 10),
+                              DropdownButtonFormField(
+                                onSaved: (newValue) {
+                                  memberId = newValue;
+                                },
+                                decoration: InputDecoration(
+                                    hintText: "Member",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0))),
+                                items: membersDropList,
+                                onChanged: (value) {},
+                              ),
+                              SizedBox(
+                                  height: Responsive.blockSizeVertical * 10),
+                              SizedBox(
+                                height: Responsive.blockSizeVertical * 70,
+                                width: Responsive.blockSizeHorizontal * 500,
+                                child: OutlinedButton(
+                                    style: ButtonStyle(backgroundColor:
+                                        MaterialStateProperty.resolveWith<
+                                            Color>((states) {
+                                      if (states
+                                          .contains(MaterialState.disabled)) {
+                                        return Colors.grey;
+                                      }
+                                      return LocalThemeData.primaryColor;
+                                    })),
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState!.save();
+
+                                        _fetchPayments();
+
+                                        Navigator.pop(context);
+                                      }
+                                    },
+                                    child: Text("Submit",
+                                        style: LocalThemeData.labelTextW)),
+                              )
+                            ])
+                          ]))),
+            ),
+          );
+        });
   }
 }
