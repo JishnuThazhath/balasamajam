@@ -5,7 +5,7 @@ import 'package:balasamajam/network/api_service.dart';
 import 'package:balasamajam/utils/models/admin_response_model.dart';
 
 class FetchAdmins {
-  static Future<List<AdminResponseModel>?> fetchAllAdmins() async {
+  static Future<List<AdminResponseModel>> fetchAllAdmins() async {
     final response = await APIService.sendRequest(
         requestType: RequestType.GET, url: APIConstants.getAllAdmins);
 
@@ -19,7 +19,8 @@ class FetchAdmins {
     if (memberResponseModelList != null && memberResponseModelList.isNotEmpty) {
       return memberResponseModelList;
     }
-    return null;
+
+    return [];
   }
 
   static _apiCallback(json) {

@@ -15,6 +15,7 @@ import 'package:balasamajam/utils/common_api_helper.dart';
 import 'package:balasamajam/utils/fetch_admins.dart';
 import 'package:balasamajam/utils/models/admin_response_model.dart';
 import 'package:balasamajam/utils/models/member_response_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -35,13 +36,18 @@ class _PaymentPageState extends State<PaymentPage> {
   List<DropdownMenuItem<String>> membersDropList = [];
   List<DropdownMenuItem<String>> adminDropDownList = [];
 
+  List<MemberResponseModel> membersDropListNew = [];
+  List<AdminResponseModel> adminsDropListNew = [];
+
   String? memberId;
   String? adminId;
 
   @override
   void initState() {
-    _populateMembersDropList();
-    _populateAdminDropList();
+    // _populateMembersDropList();
+    // _populateAdminDropList();
+    _populateMembersDropListNew();
+    _populateAdminDropListNew();
     DateTime now = DateTime.now();
     String formattedNow = DateFormat("dd/MM/yyyy").format(now);
     dateController.text = formattedNow;
@@ -187,6 +193,13 @@ class _PaymentPageState extends State<PaymentPage> {
     });
   }
 
+  _populateMembersDropListNew() async {
+    List<MemberResponseModel> members = await CommonApiHelper.getAllMembers();
+    setState(() {
+      membersDropListNew = members;
+    });
+  }
+
   _populateAdminDropList() async {
     List<AdminResponseModel>? admins = await FetchAdmins.fetchAllAdmins();
     setState(() {
@@ -197,6 +210,17 @@ class _PaymentPageState extends State<PaymentPage> {
           adminDropDownList.add(DropdownMenuItem(
               value: element.adminid, child: Text(element.adminFullName)));
         }
+      }
+    });
+  }
+
+  _populateAdminDropListNew() async {
+    List<AdminResponseModel> admins = await FetchAdmins.fetchAllAdmins();
+    setState(() {
+      if (admins == null) {
+        adminsDropListNew = [];
+      } else {
+        adminsDropListNew = admins;
       }
     });
   }
@@ -218,51 +242,65 @@ class _PaymentPageState extends State<PaymentPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Column(children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                      onTap: () async {
-                                        await _showDatePicker();
-                                      },
-                                      child: const Icon(
-                                          Icons.calendar_month_outlined)),
-                                  SizedBox(
-                                      width:
-                                          Responsive.blockSizeHorizontal * 5),
-                                  Text(
-                                    dateController.text,
-                                    style: LocalThemeData.labelTextB,
-                                  )
-                                ],
+                              GestureDetector(
+                                onTap: () async {
+                                  await _showDatePicker();
+                                },
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.calendar_month_outlined),
+                                    SizedBox(
+                                        width:
+                                            Responsive.blockSizeHorizontal * 5),
+                                    Text(
+                                      dateController.text,
+                                      style: LocalThemeData.labelTextB,
+                                    )
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                   height: Responsive.blockSizeVertical * 10),
-                              DropdownButtonFormField(
-                                onSaved: (newValue) {
-                                  adminId = newValue;
-                                },
-                                decoration: InputDecoration(
-                                    hintText: "Admin",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0))),
-                                items: adminDropDownList,
-                                onChanged: (value) {},
-                              ),
+                              DropdownSearch<AdminResponseModel>(
+                                  popupProps: const PopupProps.menu(
+                                      //showSelectedItems: true,
+                                      showSearchBox: true),
+                                  items: adminsDropListNew,
+                                  // asyncItems: (text) =>
+                                  //     FetchAdmins.fetchAllAdmins(),
+                                  itemAsString: (AdminResponseModel model) =>
+                                      model.adminFullName,
+                                  dropdownDecoratorProps:
+                                      const DropDownDecoratorProps(
+                                    dropdownSearchDecoration: InputDecoration(
+                                      labelText: "Select Admin",
+                                      hintText: "Select Admin",
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    adminId = value?.adminid;
+                                  }),
                               SizedBox(
                                   height: Responsive.blockSizeVertical * 10),
-                              DropdownButtonFormField(
-                                onSaved: (newValue) {
-                                  memberId = newValue;
-                                },
-                                decoration: InputDecoration(
-                                    hintText: "Member",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0))),
-                                items: membersDropList,
-                                onChanged: (value) {},
-                              ),
+                              DropdownSearch<MemberResponseModel>(
+                                  popupProps: const PopupProps.menu(
+                                      //showSelectedItems: true,
+                                      showSearchBox: true),
+                                  items: membersDropListNew,
+                                  // asyncItems: (text) =>
+                                  //     CommonApiHelper.getAllMembers(),
+                                  itemAsString: (MemberResponseModel model) =>
+                                      model.memberFullName,
+                                  dropdownDecoratorProps:
+                                      const DropDownDecoratorProps(
+                                    dropdownSearchDecoration: InputDecoration(
+                                      labelText: "Select Member",
+                                      hintText: "Select Member",
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    memberId = value?.memberId;
+                                  }),
                               SizedBox(
                                   height: Responsive.blockSizeVertical * 10),
                               SizedBox(

@@ -33,7 +33,7 @@ dependencies:
   http: any
   json_annotation: ^4.6.0
   shared_preferences: ^2.0.15
-  searchfield: any
+  dropdown_search: ^5.0.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
