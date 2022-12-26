@@ -190,6 +190,7 @@ class _MemberPageState extends State<AddMemberPage> {
     if (responseBaseModel != null && responseBaseModel.status == "OK") {
       OnScreenMessageUtil.showSnackBarBottom(
           responseBaseModel.message, context, OnScreenMessageUtil.GREEN);
+      _formKey.currentState!.reset();
     }
   }
 
