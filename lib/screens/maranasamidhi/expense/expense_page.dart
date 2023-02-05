@@ -100,7 +100,7 @@ class _ExpensePageState extends State<ExpensePage> {
                                 description: expenses[index].description,
                                 date: expenses[index].date,
                                 amount: expenses[index].amount.toString(),
-                                relatedTo: expenses[index].relatedTo,
+                                relatedTo: expenses[index].relatedTo.toString(),
                                 addedBy: expenses[index].addedBy,
                                 callBack: _callBack);
                           },

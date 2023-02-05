@@ -9,7 +9,7 @@ class FetchExpenseResponseModel {
   final String description;
   final String date;
   final double amount;
-  final String relatedTo;
+  final String? relatedTo;
   final String addedBy;
 
   FetchExpenseResponseModel(this.expenseType, this.description, this.date,

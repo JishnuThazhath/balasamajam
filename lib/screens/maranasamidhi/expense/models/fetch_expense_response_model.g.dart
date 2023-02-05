@@ -13,7 +13,7 @@ FetchExpenseResponseModel _$FetchExpenseResponseModelFromJson(
       json['description'] as String,
       json['date'] as String,
       (json['amount'] as num).toDouble(),
-      json['relatedTo'] as String,
+      json['relatedTo'] as String?,
       json['addedBy'] as String,
     );
 
