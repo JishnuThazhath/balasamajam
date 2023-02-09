@@ -93,14 +93,21 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: ListView.separated(
                           addAutomaticKeepAlives: false,
                           itemBuilder: (context, index) {
-                            return DataCard(
-                                callBack: _callBack,
-                                collectedFrom: payments[index].memberFullName,
-                                paymentDate: payments[index].paymentDate,
-                                paymentAmount:
-                                    payments[index].amount.toString(),
-                                collectedBy:
-                                    payments[index].collectedByFullName);
+                            return Card(
+                              elevation: 1,
+                              shadowColor: Colors.grey[600],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: DataCard(
+                                  callBack: _callBack,
+                                  collectedFrom: payments[index].memberFullName,
+                                  paymentDate: payments[index].paymentDate,
+                                  paymentAmount:
+                                      payments[index].amount.toString(),
+                                  collectedBy:
+                                      payments[index].collectedByFullName),
+                            );
                           },
                           separatorBuilder: (context, index) => SizedBox(
                               height: Responsive.blockSizeVertical * 10),
@@ -217,7 +224,7 @@ class _PaymentPageState extends State<PaymentPage> {
   _populateAdminDropListNew() async {
     List<AdminResponseModel> admins = await FetchAdmins.fetchAllAdmins();
     setState(() {
-      if (admins == null) {
+      if (admins.isEmpty) {
         adminsDropListNew = [];
       } else {
         adminsDropListNew = admins;

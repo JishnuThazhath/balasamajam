@@ -22,99 +22,110 @@ class DataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleText = const TextStyle(
-        color: Colors.white,
+    Color forgroundColor = Colors.black;
+    Color markerColor = Colors.blue;
+    Color markerTextColor = Colors.white;
+
+    TextStyle titleText = TextStyle(
+        color: forgroundColor,
         fontFamily: 'Trueno',
-        fontSize: 20,
+        fontSize: Responsive.blockSizeVertical * 25,
         fontWeight: FontWeight.w500);
 
-    TextStyle subText = const TextStyle(
-        color: Colors.white,
+    TextStyle subText = TextStyle(
+        color: forgroundColor,
         fontFamily: 'Trueno',
-        fontSize: 15,
+        fontSize: Responsive.blockSizeVertical * 15,
         fontWeight: FontWeight.w500);
 
-    return GestureDetector(
-      onTap: () => callBack(),
-      child: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: Responsive.blockSizeVertical * 15,
-              horizontal: Responsive.blockSizeHorizontal * 30),
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 5,
-                  offset: const Offset(0, 2))
-            ],
-          ),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: Responsive.blockSizeVertical * 2,
-                      horizontal: Responsive.blockSizeHorizontal * 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 2))
-                    ],
-                  ),
-                  child: Text(expenseType)),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.currency_rupee_sharp,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    amount,
-                    style: titleText,
-                  ),
-                ],
-              ),
-            ]),
-            SizedBox(height: Responsive.blockSizeVertical * 5),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(
-                description,
-                style: titleText,
-              ),
-              Text(
-                date,
-                style: subText,
-              )
-            ]),
-            SizedBox(height: Responsive.blockSizeVertical * 15),
-            Column(
+    TextStyle markerTextStyle = TextStyle(
+        color: markerTextColor,
+        fontFamily: 'Trueno',
+        fontSize: Responsive.blockSizeVertical * 12,
+        fontWeight: FontWeight.w500);
+
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(Icons.attach_money_sharp,
+              size: Responsive.blockSizeVertical * 120, color: forgroundColor),
+          SizedBox(width: Responsive.blockSizeVertical * 10),
+          Expanded(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "ENTERED BY",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                  ),
-                ),
-                Text(
-                  addedBy,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                  ),
+                Text(description, style: titleText),
+                SizedBox(height: Responsive.blockSizeVertical * 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: markerColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              padding: const EdgeInsets.all(5),
+                              child:
+                                  Text("Payment Date", style: markerTextStyle)),
+                          SizedBox(height: Responsive.blockSizeVertical * 5),
+                          Text(date, style: subText)
+                        ],
+                      ),
+                    ),
+                    //SizedBox(width: Responsive.blockSizeHorizontal * 30),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: markerColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              padding: const EdgeInsets.all(5),
+                              child:
+                                  Text("Paid Amount", style: markerTextStyle)),
+                          SizedBox(height: Responsive.blockSizeVertical * 5),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.currency_rupee_sharp,
+                                  color: forgroundColor,
+                                  size: Responsive.blockSizeVertical * 15),
+                              Text(amount, style: subText),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    //SizedBox(width: Responsive.blockSizeHorizontal * 30),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: markerColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              padding: const EdgeInsets.all(5),
+                              child:
+                                  Text("Entered By", style: markerTextStyle)),
+                          SizedBox(height: Responsive.blockSizeVertical * 5),
+                          Text(addedBy, style: subText)
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ],
-            )
-          ])),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

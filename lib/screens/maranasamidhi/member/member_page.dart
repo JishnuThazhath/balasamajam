@@ -123,19 +123,27 @@ class _MemberPageState extends State<MemberPage> {
             ),
           ]),
           const Divider(thickness: 2),
+          // List View - Members
           Expanded(
               child: members.isNotEmpty
                   ? ListView.separated(
                       addAutomaticKeepAlives: false,
                       itemBuilder: (context, index) {
-                        return DataCard(
-                            fullName: members[index].memberFullName,
-                            localFullName: members[index].memberLocalName,
-                            phone: members[index].phoneNumber,
-                            maranavari: members[index].maranavari.toString(),
-                            masavari: members[index].masavari.toString(),
-                            total: members[index].total.toString(),
-                            callBack: _callBack);
+                        return Card(
+                          elevation: 1,
+                          shadowColor: Colors.grey[600],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: DataCard(
+                              fullName: members[index].memberFullName,
+                              localFullName: members[index].memberLocalName,
+                              phone: members[index].phoneNumber,
+                              maranavari: members[index].maranavari.toString(),
+                              masavari: members[index].masavari.toString(),
+                              total: members[index].total.toString(),
+                              callBack: _callBack),
+                        );
                       },
                       separatorBuilder: (context, index) =>
                           SizedBox(height: Responsive.blockSizeVertical * 10),

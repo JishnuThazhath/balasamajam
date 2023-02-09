@@ -95,14 +95,22 @@ class _ExpensePageState extends State<ExpensePage> {
                       child: ListView.separated(
                           addAutomaticKeepAlives: false,
                           itemBuilder: (context, index) {
-                            return DataCard(
-                                expenseType: expenses[index].expenseType.name,
-                                description: expenses[index].description,
-                                date: expenses[index].date,
-                                amount: expenses[index].amount.toString(),
-                                relatedTo: expenses[index].relatedTo.toString(),
-                                addedBy: expenses[index].addedBy,
-                                callBack: _callBack);
+                            return Card(
+                              elevation: 1,
+                              shadowColor: Colors.grey[600],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: DataCard(
+                                  expenseType: expenses[index].expenseType.name,
+                                  description: expenses[index].description,
+                                  date: expenses[index].date,
+                                  amount: expenses[index].amount.toString(),
+                                  relatedTo:
+                                      expenses[index].relatedTo.toString(),
+                                  addedBy: expenses[index].addedBy,
+                                  callBack: _callBack),
+                            );
                           },
                           separatorBuilder: (context, index) => SizedBox(
                               height: Responsive.blockSizeVertical * 20),

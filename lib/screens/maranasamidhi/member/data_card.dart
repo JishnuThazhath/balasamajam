@@ -1,5 +1,6 @@
 import 'package:balasamajam/responsive.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert' show utf8;
 
 class DataCard extends StatelessWidget {
   final String fullName;
@@ -22,137 +23,148 @@ class DataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleText = const TextStyle(
-        color: Colors.white,
+    Color forgroundColor = Colors.black;
+    Color markerColor = Colors.blue;
+    Color markerTextColor = Colors.white;
+
+    TextStyle titleText = TextStyle(
+        color: forgroundColor,
         fontFamily: 'Trueno',
-        fontSize: 20,
+        fontSize: Responsive.blockSizeVertical * 20,
         fontWeight: FontWeight.w500);
 
-    TextStyle subText = const TextStyle(
-        color: Colors.white,
+    TextStyle amountText = TextStyle(
+        color: forgroundColor,
         fontFamily: 'Trueno',
-        fontSize: 15,
+        fontSize: Responsive.blockSizeVertical * 15,
         fontWeight: FontWeight.w500);
 
-    return GestureDetector(
-      onTap: () => callBack(),
-      child: Container(
-        decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 2))
-            ],
-            color: Colors.blue,
-            borderRadius: const BorderRadius.all(Radius.circular(15))),
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.blockSizeHorizontal * 10,
-            vertical: Responsive.blockSizeVertical * 10),
-        child: Row(
-          children: [
-            const Icon(Icons.person, size: 100, color: Colors.white),
-            SizedBox(width: Responsive.blockSizeHorizontal * 70),
-            Column(
+    TextStyle subText = TextStyle(
+        color: forgroundColor,
+        fontFamily: 'Trueno',
+        fontSize: Responsive.blockSizeVertical * 5,
+        fontWeight: FontWeight.w500);
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Icon(Icons.person, size: 100, color: forgroundColor),
+          SizedBox(width: Responsive.blockSizeHorizontal * 70),
+          Expanded(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  fullName,
-                  style: titleText,
-                ),
+                Text(_getMemberName(), style: titleText), // Name
                 SizedBox(height: Responsive.blockSizeVertical * 5),
-                Text(phone, style: subText),
+                phone.isNotEmpty
+                    ? Text(phone, style: subText)
+                    : const SizedBox(height: 0), // Phone
                 SizedBox(height: Responsive.blockSizeVertical * 15),
+                // Details Row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                          ),
-                          padding: const EdgeInsets.all(3.0),
-                          child: const Text("MARANAVARI",
-                              style: TextStyle(
-                                fontSize: 10,
-                              )),
-                        ),
-                        SizedBox(height: Responsive.blockSizeVertical * 5),
-                        Row(
-                          children: [
-                            const Icon(Icons.currency_rupee_sharp,
-                                color: Colors.white),
-                            Text(
-                              "${maranavari}",
-                              style: titleText,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: Responsive.blockSizeHorizontal * 20),
-                    Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                          ),
-                          padding: const EdgeInsets.all(3.0),
-                          child: const Text(
-                            "MASAVARI",
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ),
-                        SizedBox(height: Responsive.blockSizeVertical * 5),
-                        Row(
-                          children: [
-                            const Icon(Icons.currency_rupee_sharp,
-                                color: Colors.white),
-                            Text(
-                              "${masavari}",
-                              style: titleText,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: Responsive.blockSizeHorizontal * 20),
-                    Column(
-                      children: [
-                        Container(
+                    // Maranavari
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.white,
+                              color: markerColor,
                             ),
                             padding: const EdgeInsets.all(3.0),
-                            child: const Text(
-                              "TOTAL",
-                              style: TextStyle(fontSize: 10),
-                            )),
-                        SizedBox(height: Responsive.blockSizeVertical * 5),
-                        Row(
-                          children: [
-                            const Icon(Icons.currency_rupee_sharp,
-                                color: Colors.white),
-                            Text(
-                              "${total}",
-                              style: titleText,
+                            child: Text("MARANAVARI",
+                                style: TextStyle(
+                                    fontSize: 10, color: markerTextColor)),
+                          ),
+                          SizedBox(height: Responsive.blockSizeVertical * 5),
+                          Row(
+                            children: [
+                              Icon(Icons.currency_rupee_sharp,
+                                  color: markerColor),
+                              Text(maranavari, style: amountText),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    //Masavari
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: markerColor),
+                            padding: const EdgeInsets.all(3.0),
+                            child: Text(
+                              "MASAVARI",
+                              style: TextStyle(
+                                  fontSize: 10, color: markerTextColor),
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          SizedBox(height: Responsive.blockSizeVertical * 5),
+                          Row(
+                            children: [
+                              Icon(Icons.currency_rupee_sharp,
+                                  color: markerColor),
+                              Text(masavari, style: amountText),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Total
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: markerColor,
+                              ),
+                              padding: const EdgeInsets.all(3.0),
+                              child: Text(
+                                "TOTAL",
+                                style: TextStyle(
+                                    fontSize: 10, color: markerTextColor),
+                              )),
+                          SizedBox(height: Responsive.blockSizeVertical * 5),
+                          Row(
+                            children: [
+                              Icon(Icons.currency_rupee_sharp,
+                                  color: markerColor),
+                              Text(total, style: amountText), // Total
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 )
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
+  }
+
+  // By defualt dart converts all the strings to utf-16.
+  // This method converts the string to utf-8, which is the original encoding the api uses.
+  _getMemberName() {
+    String utf8Encoded = localFullName;
+
+    if (utf8Encoded.isNotEmpty) {
+      var utf8Runes = utf8Encoded.runes.toList();
+      return utf8.decode(utf8Runes);
+    }
+
+    return fullName;
   }
 }
