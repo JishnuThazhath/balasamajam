@@ -43,143 +43,138 @@ class _MemberPageState extends State<MemberPage> {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                    side: const BorderSide(
-                        width: 3, color: LocalThemeData.primaryColor)),
-                onPressed: _addMember,
-                child: Text("Add Member", style: LocalThemeData.labelTextB)),
-          ),
-          Form(
-              key: _formKey,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: Responsive.blockSizeHorizontal * 720,
-                    child: TextFormField(
-                      onSaved: (newValue) {
-                        searchText = newValue;
-                      },
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Enter Member Name"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Member Name cannot be empty";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                      height: Responsive.blockSizeVertical * 60,
-                      child: OutlinedButton(
-                        style: ButtonStyle(backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>((states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return Colors.grey;
-                          }
-                          return LocalThemeData.primaryColor;
-                        })),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-
-                            _fetchMembers();
-
-                            OnScreenMessageUtil.showSnackBarBottom(
-                                "Fetchin data...",
-                                context,
-                                OnScreenMessageUtil.GREEN);
-                          }
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Align(
+            //   alignment: Alignment.topRight,
+            //   child: OutlinedButton(
+            //       style: OutlinedButton.styleFrom(
+            //           side: const BorderSide(
+            //               width: 3, color: LocalThemeData.primaryColor)),
+            //       onPressed: _addMember,
+            //       child: Text("Add Member", style: LocalThemeData.labelTextB)),
+            // ),
+            SizedBox(height: Responsive.blockSizeVertical * 10),
+            Form(
+                key: _formKey,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: Responsive.blockSizeHorizontal * 720,
+                      child: TextFormField(
+                        onSaved: (newValue) {
+                          searchText = newValue;
                         },
-                        child: const Icon(Icons.search, color: Colors.white),
-                      ))
-                ],
-              )),
-          SizedBox(height: Responsive.blockSizeVertical * 15),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text("Member Summary", style: LocalThemeData.labelText),
-            Row(
-              children: [
-                GestureDetector(
-                    onTap: () async {
-                      String dateString = await _showDatePicker();
-                      setState(() {
-                        dateController.text = dateString;
-                      });
-                    },
-                    child: const Icon(Icons.calendar_month_outlined)),
-                SizedBox(width: Responsive.blockSizeHorizontal * 5),
-                Text(
-                  dateController.text,
-                  style: LocalThemeData.labelTextB,
-                )
-              ],
-            ),
-          ]),
-          const Divider(thickness: 2),
-          // List View - Members
-          Expanded(
-              child: members.isNotEmpty
-                  ? ListView.separated(
-                      addAutomaticKeepAlives: false,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 1,
-                          shadowColor: Colors.grey[600],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: DataCard(
-                              fullName: members[index].memberFullName,
-                              localFullName: members[index].memberLocalName,
-                              phone: members[index].phoneNumber,
-                              maranavari: members[index].maranavari.toString(),
-                              masavari: members[index].masavari.toString(),
-                              total: members[index].total.toString(),
-                              callBack: _callBack),
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: Responsive.blockSizeVertical * 10),
-                      itemCount: members.length)
-                  : const Center(child: Text("No Data to display...")))
-        ]),
+                        onChanged: ((value) {
+                          _fetchMembersData(value);
+                        }),
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: "Enter Member Name"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Member Name cannot be empty";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                        height: Responsive.blockSizeVertical * 60,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            _addMember();
+                          },
+                          child:
+                              const Icon(Icons.person_add, color: Colors.blue),
+                        ))
+                  ],
+                )),
+            SizedBox(height: Responsive.blockSizeVertical * 15),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text("Member Summary", style: LocalThemeData.labelText),
+              // Row(
+              //   children: [
+              //     GestureDetector(
+              //         onTap: () async {
+              //           String dateString = await _showDatePicker();
+              //           setState(() {
+              //             dateController.text = dateString;
+              //           });
+              //         },
+              //         child: const Icon(Icons.calendar_month_outlined)),
+              //     SizedBox(width: Responsive.blockSizeHorizontal * 5),
+              //     Text(
+              //       dateController.text,
+              //       style: LocalThemeData.labelTextB,
+              //     )
+              //   ],
+              // ),
+            ]),
+            const Divider(thickness: 2),
+            // List View - Members
+            Expanded(
+                child: members.isNotEmpty
+                    ? ListView.separated(
+                        addAutomaticKeepAlives: false,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 1,
+                            shadowColor: Colors.grey[600],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: DataCard(
+                                fullName: members[index].memberFullName,
+                                localFullName: members[index].memberLocalName,
+                                phone: members[index].phoneNumber,
+                                maranavari:
+                                    members[index].maranavari.toString(),
+                                masavari: members[index].masavari.toString(),
+                                total: members[index].total.toString(),
+                                callBack: _callBack),
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: Responsive.blockSizeVertical * 10),
+                        itemCount: members.length)
+                    : const Center(child: Text("No Data to display...")))
+          ],
+        ),
       ),
     );
   }
 
-  Future<String> _showDatePicker() async {
-    DateTime? datePicker = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100));
+  // Future<String> _showDatePicker() async {
+  //   DateTime? datePicker = await showDatePicker(
+  //       context: context,
+  //       initialDate: DateTime.now(),
+  //       firstDate: DateTime(2000),
+  //       lastDate: DateTime(2100));
 
-    String formattedDate = dateController.text;
+  //   String formattedDate = dateController.text;
 
-    if (datePicker != null) {
-      formattedDate = DateFormat("dd/MM/yyyy").format(datePicker);
-    }
-    return formattedDate;
+  //   if (datePicker != null) {
+  //     formattedDate = DateFormat("dd/MM/yyyy").format(datePicker);
+  //   }
+  //   return formattedDate;
+  // }
+
+  _fetchMembers() {
+    _fetchMembersData(searchText);
   }
 
   // CALL TO FETCH MEMBERS INFORMATION
-  _fetchMembers() async {
+  _fetchMembersData(typedText) async {
     setState(() {
       members = [];
     });
 
-    String formattedDate = dateController.text;
-    print("Selected Date is : " + formattedDate);
-
     FetchMemberRequestModel fetchMemberRequestModel =
-        FetchMemberRequestModel(searchText);
+        FetchMemberRequestModel(typedText);
 
     final token =
         await SharedState.getSharedState(LocalAppState.TOKEN.toString());
