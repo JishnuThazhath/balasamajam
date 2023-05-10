@@ -1,7 +1,7 @@
 class APIConstants {
   const APIConstants._();
 
-  static const String apiEndpoint = "http://15.206.185.22:8080";
+  static const String apiEndpoint = "http://15.206.148.50:8080";
   //static const String apiEndpoint = "http://localhost:8080";
 
   static const String fetchMembers = "$apiEndpoint/fetchMembers";
